@@ -9,7 +9,7 @@ class DishController {
 
     public function addDish($dish_type, $name, $ingredients, $options) {
         $sql = "INSERT INTO dishs (dish_type, name, ingredients, options) 
-                VALUES (?, ?, ?)";
+                VALUES (?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$dish_type, $name, $ingredients, $options]);
         return true;
