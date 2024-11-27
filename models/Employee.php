@@ -6,7 +6,7 @@ use DateTime;
 
 class Employee {
     private int $id;
-    private string $role;
+    private array $roles;
     private string $username;
     private string $password;
     private string $firstname;
@@ -18,7 +18,7 @@ class Employee {
     # Constructor
     public function __construct(
         int $id,
-        string $role,
+        array $roles,
         string $username,
         string $password,
         bool $isActive,
@@ -26,7 +26,7 @@ class Employee {
         DateTime $departureDate
     ){
         $this->id = $id;
-        $this->role = $role;
+        $this->roles = $roles;
         $this->username = $username;
         $this->password = $password;
         $this->isActive = $isActive;
@@ -36,7 +36,7 @@ class Employee {
 
     # Getters
     public function getId() : int {return $this->id;}
-    public function getRole() : string {return $this->role;}
+    public function getRoles() : array {return $this->roles;}
     public function getUsername() : string {return $this->username;}
     public function getFirstname() : string {return $this->firstname;}
     public function getLastname() : string {return $this->lastname;}
@@ -46,7 +46,7 @@ class Employee {
     public function getDepartureDate() : DateTime {return $this->departureDate;}
 
     # Setters
-    public function setRole(string $role) : void {$this->role = $role;}
+    public function setRoles(array $roles) : void {$this->roles = $roles;}
     public function setUsername(string $username) : void {$this->username = $username;}
     public function setFirstname(string $firstname) : void {$this->firstname = $firstname;}
     public function setLastname(string $lastname) : void {$this->lastname = $lastname;}
