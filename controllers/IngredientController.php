@@ -19,8 +19,8 @@ class IngredientController {
         $sql = "SELECT * FROM ingredient";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $menus;
+        $ingredient = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $ingredient;
     }
 
     public function updateIngredient($id, $name, $allergens, $price) {
