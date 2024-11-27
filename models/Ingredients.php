@@ -35,4 +35,14 @@ class Ingredients {
     public function setName(string $name) : void {$this->name = $name;}
     public function setAllergens(array $allergens) : void {$this->allergens = $allergens;}
     public function setPrice(float $price) : void {$this->price = $price;}
+
+    # Methods
+    public function restock(int $amount) : void {$this->stock += $amount;}
+    public function destock(int $amount) : void {$this->stock -= $amount;}
+    public function thresholdReached() : bool {return $this->stock < 10;}
+    public function addAllergen(string $allergen) : void {$this->allergens[] = $allergen;}
+    public function removeAllergen(string $allergen) : void {
+        $index = array_search($allergen, $this->allergens);
+        unset($this->allergens[$index]);
+    }
 }
