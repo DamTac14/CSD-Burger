@@ -1,7 +1,6 @@
 <?php  
 
-namespace Controllers;
-
+namespace App\Controllers;
 use PDO;
 include_once '../database/database.php';
 
