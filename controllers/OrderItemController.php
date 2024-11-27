@@ -19,8 +19,8 @@ class OrderItemController {
         $sql = "SELECT * FROM order_items";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $menus;
+        $orderItem = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $orderItem;
     }
 
     public function updateIngredient($id, $name) {
