@@ -19,8 +19,8 @@ class StockController {
         $sql = "SELECT * FROM stocks";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $stocks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $stocks;
+        $stock = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stock;
     }
 
     public function updateStock($id, $quantity, $threshold) {
