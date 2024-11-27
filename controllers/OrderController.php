@@ -24,9 +24,9 @@ class OrderController {
         return $orders;
     }
 
-    public function updateOrder($id, $number, $items, $orderDate, $takeAway) {
+    public function updateOrder($id, $number, $items, $status, $orderDate, $takeAway) {
         $sql = "UPDATE orders
-                SET number = ?, items = ?, orderDate = ?, takeAway = ?
+                SET number = ?, items = ?, status = ?, orderDate = ?, takeAway = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $result = $stmt->execute([$number, $items, $orderDate, $takeAway, $id]);

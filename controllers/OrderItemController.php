@@ -7,7 +7,7 @@ class OrderItemController {
         $this->pdo = $pdo;
     }
 
-    public function addOrderItem($name, $allergens, $price) {
+    public function addOrderItem($name) {
         $sql = "INSERT INTO order_items (name) 
                 VALUES (?)";
         $stmt = $this->pdo->prepare($sql);
