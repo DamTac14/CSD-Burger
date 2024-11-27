@@ -19,8 +19,8 @@ class DishController {
         $sql = "SELECT * FROM dishs";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $menus;
+        $dish = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $dish;
     }
 
     public function updateDish($id, $dishType, $name, $ingredients, $options) {

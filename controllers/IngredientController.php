@@ -7,7 +7,7 @@ class IngredientController {
         $this->pdo = $pdo;
     }
 
-    public function addDish($name, $allergens, $price) {
+    public function addIngredient($name, $allergens, $price) {
         $sql = "INSERT INTO ingredients (name, allergens, price) 
                 VALUES (?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
@@ -19,8 +19,8 @@ class IngredientController {
         $sql = "SELECT * FROM ingredient";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $menus;
+        $ingredient = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $ingredient;
     }
 
     public function updateIngredient($id, $name, $allergens, $price) {

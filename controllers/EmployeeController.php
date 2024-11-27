@@ -22,8 +22,8 @@ class EmployeeController {
         $sql = "SELECT * FROM employees";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $employees;
+        $employee = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $employee;
     }
 
     public function updateEmployee($id, $lastName, $firstName, $userName, $role, $password, $isActive, $hireDate, $departureDate) {
