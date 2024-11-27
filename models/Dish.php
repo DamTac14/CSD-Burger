@@ -1,5 +1,7 @@
 <?php
 
+namespace models;
+
 class Dish {
     private int $id;
     private string $name;

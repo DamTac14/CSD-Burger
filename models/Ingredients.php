@@ -1,11 +1,13 @@
 <?php
 
+namespace models;
+
 class Ingredients {
     private int $id;
     private string $name;
     private array $allergens;
     private float $price;
-    private int $id_stock;
+    private int $stock;
 
     # Constructor
     public function __construct(
@@ -13,13 +15,13 @@ class Ingredients {
         string $name,
         array $allergens,
         float $price,
-        int $id_stock
+        int $stock
     ){
         $this->id = $id;
         $this->name = $name;
         $this->allergens = $allergens;
         $this->price = $price;
-        $this->id_stock = $id_stock;
+        $this->stock = $stock;
     }
 
     # Getters
@@ -27,7 +29,7 @@ class Ingredients {
     public function getName() : string {return $this->name;}
     public function getAllergens() : array {return $this->allergens;}
     public function getPrice() : float {return $this->price;}
-    public function getIdStock() : int {return $this->id_stock;}
+    public function getIdStock() : int {return $this->stock;}
 
     # Setters
     public function setName(string $name) : void {$this->name = $name;}

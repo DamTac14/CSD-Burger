@@ -1,13 +1,17 @@
 <?php
 
+namespace models;
+
+use DateTime;
+
 class Employee {
     private int $id;
     private string $role;
     private string $login;
     private string $password;
-    private bool $is_active;
-    private DateTime $hire_date;
-    private DateTime $departure_date;
+    private bool $isActive;
+    private DateTime $hireDate;
+    private DateTime $departureDate;
 
     # Constructor
     public function __construct(
@@ -15,32 +19,32 @@ class Employee {
         string $role,
         string $login,
         string $password,
-        bool $is_active,
-        DateTime $hire_date,
-        DateTime $departure_date
+        bool $isActive,
+        DateTime $hireDate,
+        DateTime $departureDate
     ){
         $this->id = $id;
         $this->role = $role;
         $this->login = $login;
         $this->password = $password;
-        $this->is_active = $is_active;
-        $this->hire_date = $hire_date;
-        $this->departure_date = $departure_date;
+        $this->isActive = $isActive;
+        $this->hireDate = $hireDate;
+        $this->departureDate = $departureDate;
     }
 
     # Getters
     public function getId() : int {return $this->id;}
     public function getRole() : string {return $this->role;}
     public function getLogin() : string {return $this->login;}
-    public function getIsActive() : bool {return $this->is_active;}
-    public function getHireDate() : DateTime {return $this->hire_date;}
-    public function getDepartureDate() : DateTime {return $this->departure_date;}
+    public function getIsActive() : bool {return $this->isActive;}
+    public function getHireDate() : DateTime {return $this->hireDate;}
+    public function getDepartureDate() : DateTime {return $this->departureDate;}
 
     # Setters
     public function setRole(string $role) : void {$this->role = $role;}
     public function setLogin(string $login) : void {$this->login = $login;}
     public function setPassword(string $password) : void {$this->password = $password;}
-    public function setIsActive(bool $is_active) : void {$this->is_active = $is_active;}
-    public function setHireDate(DateTime $hire_date) : void {$this->hire_date = $hire_date;}
-    public function setDepartureDate(DateTime $departure_date) : void {$this->departure_date = $departure_date;}
+    public function setIsActive(bool $isActive) : void {$this->isActive = $isActive;}
+    public function setHireDate(DateTime $hireDate) : void {$this->hireDate = $hireDate;}
+    public function setDepartureDate(DateTime $departureDate) : void {$this->departureDate = $departureDate;}
 }

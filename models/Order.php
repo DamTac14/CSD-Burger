@@ -1,11 +1,15 @@
 <?php
 
+namespace models;
+
+use DateTime;
+
 class Order {
     public int $id;
     public int $number;
-    public array $items; //OrderItems
+    public array $items;
     public string $status;
-    public DateTime $order_date;
+    public DateTime $orderDate;
     public bool $takeaway;
 
     # Constructor
@@ -14,14 +18,14 @@ class Order {
         int $number,
         array $items,
         string $status,
-        DateTime $order_date,
+        DateTime $orderDate,
         bool $takeaway
     ){
         $this->id = $id;
         $this->number = $number;
         $this->items = $items;
         $this->status = $status;
-        $this->order_date = $order_date;
+        $this->orderDate = $orderDate;
         $this->takeaway = $takeaway;
     }
 
@@ -30,8 +34,8 @@ class Order {
     public function getNumber() : int {return $this->number;}
     public function getItems() : array {return $this->items;}
     public function getStatus() : string {return $this->status;}
-    public function getOrderDate() : DateTime {return $this->order_date;}
-    public function getTakeaway() : bool {return $this->takeaway;}
+    public function getOrderDate() : DateTime {return $this->orderDate;}
+    public function getIsTakeaway() : bool {return $this->takeaway;}
 
     # Setters
     public function setItems(array $items) : void {$this->items = $items;}
