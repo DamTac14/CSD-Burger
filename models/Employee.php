@@ -21,6 +21,8 @@ class Employee {
         array $roles,
         string $username,
         string $password,
+        string $firstname,
+        string $lastname,
         bool $isActive,
         DateTime $hireDate,
         DateTime $departureDate
@@ -29,6 +31,8 @@ class Employee {
         $this->roles = $roles;
         $this->username = $username;
         $this->password = $password;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
         $this->isActive = $isActive;
         $this->hireDate = $hireDate;
         $this->departureDate = $departureDate;
