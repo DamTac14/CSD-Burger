@@ -26,17 +26,17 @@ class OrderItem {
     }
 
     # Getters
-    public function getId(): int {return $this->id;}
-    public function getName(): string {return $this->name;}
-    public function getImage(): string {return $this->image;}
-    public function getOptions(): array {return $this->options;}
-    public function getIdOrder(): int {return $this->id_order;}
-    public function getIdMenu(): int {return $this->id_menu;}
+    public function getId() : int {return $this->id;}
+    public function getName() : string {return $this->name;}
+    public function getImage() : string {return $this->image;}
+    public function getOptions() : array {return $this->options;}
+    public function getIdOrder() : int {return $this->id_order;}
+    public function getIdMenu() : int {return $this->id_menu;}
 
     # Setters
-    public function setName(string $name): void {$this->name = $name;}
-    public function setImage(string $image): void {$this->image = $image;}
-    public function setOptions(array $options): void {$this->options = $options;}
-    public function setIdOrder(int $id_order): void {$this->id_order = $id_order;}
-    public function setIdMenu(int $id_menu): void {$this->id_menu = $id_menu;}
+    public function setName(string $name) : void {$this->name = $name;}
+    public function setImage(string $image) : void {$this->image = $image;}
+    public function setOptions(array $options) : void {$this->options = $options;}
+    public function setIdOrder(int $id_order) : void {$this->id_order = $id_order;}
+    public function setIdMenu(int $id_menu) : void {$this->id_menu = $id_menu;}
 }

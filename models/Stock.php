@@ -13,11 +13,11 @@ class Stock {
     }
 
     # Getters
-    public function getId(): int {return $this->id;}
-    public function getQuantity(): int {return $this->quantity;}
-    public function getThreshold(): int {return $this->threshold;}
+    public function getId() : int {return $this->id;}
+    public function getQuantity() : int {return $this->quantity;}
+    public function getThreshold() : int {return $this->threshold;}
 
     # Setters
-    public function setQuantity(int $quantity): void {$this->quantity = $quantity;}
-    public function setThreshold(int $threshold): void {$this->threshold = $threshold;}
+    public function setQuantity(int $quantity) : void {$this->quantity = $quantity;}
+    public function setThreshold(int $threshold) : void {$this->threshold = $threshold;}
 }
