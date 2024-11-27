@@ -3,16 +3,16 @@
 namespace Controllers;
 
 use PDO;
-include_once '../database/database.php';
+
 class OrderController {
     private $pdo;
-    
+
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
     public function addOrder($number, $items, $status, $orderDate, $takeAway) {
-        $sql = "INSERT INTO orders (number, items, status, orderDate, takeAway) 
+        $sql = "INSERT INTO `order` (number, items, status, orderDate, takeAway) 
                 VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$number, $items, $status, $orderDate, $takeAway]);
@@ -20,26 +20,23 @@ class OrderController {
     }
 
     public function showOrder() {
-        $sql = "SELECT * FROM orders";
+        $sql = "SELECT * FROM `order`";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $orders;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function updateOrder($id, $number, $items, $status, $orderDate, $takeAway) {
-        $sql = "UPDATE orders
+        $sql = "UPDATE `order`
                 SET number = ?, items = ?, status = ?, orderDate = ?, takeAway = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute([$number, $items, $orderDate, $takeAway, $id]);
-        return $result; 
+        return $stmt->execute([$number, $items, $status, $orderDate, $takeAway, $id]);
     }
 
     public function deleteOrder($id) {
-        $sql = "DELETE FROM orders WHERE id = ?";
+        $sql = "DELETE FROM `order` WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
 }
-
