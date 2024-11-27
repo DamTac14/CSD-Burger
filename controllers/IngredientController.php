@@ -7,7 +7,7 @@ class IngredientController {
         $this->pdo = $pdo;
     }
 
-    public function addDish($name, $allergens, $price) {
+    public function addIngredient($name, $allergens, $price) {
         $sql = "INSERT INTO ingredients (name, allergens, price) 
                 VALUES (?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
