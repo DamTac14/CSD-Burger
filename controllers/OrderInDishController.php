@@ -1,6 +1,6 @@
 <?php  
 
-class OrderInDishControllerDishController {
+class OrderInDishController {
     private $pdo;
     
     public function __construct($pdo) {
@@ -15,7 +15,7 @@ class OrderInDishControllerDishController {
         return true;
     }
 
-    public function showOrderInDish(): mixed {
+    public function showOrderInDish() {
         $sql = "SELECT * FROM order_in_dish";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -25,10 +25,10 @@ class OrderInDishControllerDishController {
 
     public function updateDish($id, $ingredients, $quantity, $status, $additional) {
         $sql = "UPDATE order_in_dish
-                SET order_in_dish = ?, quantity = ?, status = ?, additional = ?
+                SET ingredients = ?, quantity = ?, status = ?, additional = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute([$ingredients, $quantity, $status,$additional, $id]);
+        $result = $stmt->execute([$ingredients, $quantity, $status, $additional, $id]);
         return $result; 
     }
 
