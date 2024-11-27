@@ -29,7 +29,7 @@ class Ingredients {
     public function getName() : string {return $this->name;}
     public function getAllergens() : array {return $this->allergens;}
     public function getPrice() : float {return $this->price;}
-    public function getIdStock() : int {return $this->stock;}
+    public function getStock() : int {return $this->stock;}
 
     # Setters
     public function setName(string $name) : void {$this->name = $name;}

@@ -30,13 +30,13 @@ class OrderItem {
     public function getName() : string {return $this->name;}
     public function getImage() : string {return $this->image;}
     public function getOptions() : array {return $this->options;}
-    public function getIdOrder() : int {return $this->order;}
-    public function getIdMenu() : int {return $this->menu;}
+    public function getOrder() : int {return $this->order;}
+    public function getMenu() : int {return $this->menu;}
 
     # Setters
     public function setName(string $name) : void {$this->name = $name;}
     public function setImage(string $image) : void {$this->image = $image;}
     public function setOptions(array $options) : void {$this->options = $options;}
-    public function setIdOrder(int $order) : void {$this->order = $order;}
-    public function setIdMenu(int $menu) : void {$this->menu = $menu;}
+    public function setOrder(int $order) : void {$this->order = $order;}
+    public function setMenu(int $menu) : void {$this->menu = $menu;}
 }

@@ -13,8 +13,7 @@ class Dish {
         int $id,
         string $name,
         string $type,
-        array $ingredients,
-        array $options
+        array $ingredients
     ){
         $this->id = $id;
         $this->name = $name;
