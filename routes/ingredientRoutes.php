@@ -23,7 +23,7 @@ switch ($method) {
     case 'POST':
         // Ajouter un ingrédient
         $data = json_decode(file_get_contents('php://input'), true);
-        $result = $ingredientController->addDish(
+        $result = $ingredientController->addIngredient(
             $data['name'],
             $data['allergens'],
             $data['price']
