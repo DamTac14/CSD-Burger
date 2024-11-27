@@ -1,6 +1,9 @@
 <?php  
 
+namespace Controllers;
 
+use PDO;
+include_once '../database/database.php';
 class OrderController {
     private $pdo;
     
