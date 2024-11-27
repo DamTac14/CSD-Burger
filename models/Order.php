@@ -3,6 +3,7 @@
 namespace models;
 
 use DateTime;
+use OrderItem;
 
 class Order {
     public int $id;
@@ -40,4 +41,9 @@ class Order {
     # Setters
     public function setItems(array $items) : void {$this->items = $items;}
     public function setStatus(string $status) : void {$this->status = $status;}
+
+    # Methods
+    public function getTicket() : string {return "";}
+    public function getTotalPrice() : float {return 0;}
+    public function addItem(OrderItem $item) : void {}
 }

@@ -54,4 +54,7 @@ class Employee {
     public function setIsActive(bool $isActive) : void {$this->isActive = $isActive;}
     public function setHireDate(DateTime $hireDate) : void {$this->hireDate = $hireDate;}
     public function setDepartureDate(DateTime $departureDate) : void {$this->departureDate = $departureDate;}
+
+    # Methods
+    public function authenticate(string $username, string $password) : bool {return false;}
 }
