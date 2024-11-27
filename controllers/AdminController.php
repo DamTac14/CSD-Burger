@@ -24,5 +24,9 @@ class AuthController {
         unset($_SESSION['id']);
         return true;
     }
+
+    public function isLoggedIn() {
+        return isset($_SESSION['id']);
+    }
 }
 
