@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use PDO;
+include_once __DIR__ . '/../database/database.php'; 
 
 class OrderController {
     private $pdo;
