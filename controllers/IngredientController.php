@@ -1,5 +1,10 @@
 <?php  
 
+namespace Controllers;
+
+use PDO;
+include_once '../database/database.php';
+
 class IngredientController {
     private $pdo;
     
