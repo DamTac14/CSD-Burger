@@ -20,11 +20,26 @@ class OrderController {
     }
 
     public function showOrder() {
-        $sql = "SELECT * FROM `order`";
+        $sql = "
+            SELECT 
+                o.id AS order_id,
+                o.number AS order_number,
+                o.takeaway,
+                o.status AS order_status,
+                o.order_datetime,
+                oi.id AS order_item_id,
+                oi.name AS order_item_name,
+                oi.image AS order_item_image,
+                oi.options AS order_item_options,
+                oi.id_menu AS menu_id
+            FROM `order` o
+            LEFT JOIN `order__item` oi ON o.id = oi.id_order
+        ";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
 
     public function updateOrder($id, $number, $items, $status, $orderDate, $takeAway) {
         $sql = "UPDATE `order`
