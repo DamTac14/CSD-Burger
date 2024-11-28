@@ -15,36 +15,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="ressource/assets/header.css">
-        <style>
-            table{
-                border-radius: 25px;
-                width: 100%;
-                text-align: center;
-                border-spacing: 0;
-                font-size: larger;
-            }
-            thead{
-                background-color: #546C98;
-            }
-            tbody{
-                color: #222222;
-                background-color: #F5F5F5;
-            }
-            tr:nth-child(even){
-                background-color: #ADC7F3;
-                opacity: 40%;
-            }
-            th, td{
-                height: 50px;
-            }
-        </style>
+        <link rel="stylesheet" href="ressource/assets/employee.css">
         <title>Gestion des équipiers</title>
     </head>
     <body>
         <?php include_once('./header.php'); ?>
         <main>
             <h1>Gestion des équipiers</h1>
-            <table>
+            <table id="employee-table" class="table">
                 <thead>
                     <tr>
                         <th style="border-top-left-radius: 25px;">Prénom NOM</th>
