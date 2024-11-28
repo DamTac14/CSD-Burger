@@ -77,76 +77,6 @@ function handleRequest($controller, $method, $id)
                 echo json_encode(['error' => 'ID requis pour la mise à jour']);
                 return;
             }
-<<<<<<< HEAD
-=======
-        } else {
-            http_response_code(400);
-            echo json_encode(['error' => 'ID requis pour la mise à jour']);
-        }
-        break;
-
-    case 'DELETE':
-        // Supprimer un ingrédient
-        if ($id) {
-            $result = $ingredientController->deleteIngredient($id);
-            if ($result) {
-                http_response_code(204); // Suppression réussie
-            } else {
-                http_response_code(404);
-                echo json_encode(['error' => 'Ingrédient non trouvé']);
-            }
-        } else {
-            http_response_code(400);
-            echo json_encode(['error' => 'ID requis pour supprimer un ingrédient']);
-        }
-        break;
-
-    default:
-        http_response_code(405);
-        echo json_encode(['error' => 'Méthode non supportée']);
-}
-
- 
-
-$pdo = getDB();
-$menuController = new MenuController($pdo);
-
-$requestUri = $_SERVER['REQUEST_URI'];
-$method = $_SERVER['REQUEST_METHOD'];
-
-$id = null;
-if (preg_match('/\/api\/menus\/(\d+)/', $requestUri, $matches)) {
-    $id = $matches[1];
-}
-
-switch ($method) {
-    case 'GET':
-        // Liste tous les menus
-        $menus = $menuController->showMenu();
-        echo json_encode($menus);
-        break;
-
-    case 'POST':
-        // Ajouter un menu
-        $data = json_decode(file_get_contents('php://input'), true);
-        $result = $menuController->addMenu(
-            $data['name'],
-            $data['image'],
-            $data['dishIds'] // Liste des plats à inclure dans le menu
-        );
-        if ($result === true) {
-            http_response_code(201);
-            echo json_encode(['message' => 'Menu ajouté avec succès']);
-        } else {
-            http_response_code(400);
-            echo json_encode(['error' => 'Erreur lors de l\'ajout du menu']);
-        }
-        break;
-
-    case 'PUT':
-        // Mettre à jour un menu
-        if ($id) {
->>>>>>> 646e677fa076c0abbadb14a6651939791758ea72
             $data = json_decode(file_get_contents('php://input'), true);
             $result = $controller->update($id, $data);
             echo json_encode($result);
@@ -158,10 +88,11 @@ switch ($method) {
                 return;
             }
             $result = $controller->delete($id);
-            http_response_code(204);
+            echo json_encode($result);
             break;
         default:
             http_response_code(405);
-            echo json_encode(['error' => 'Méthode non supportée']);
+            echo json_encode(['error' => 'Méthode non autorisée']);
+            break;
     }
 }

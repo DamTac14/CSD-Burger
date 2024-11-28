@@ -1,8 +1,6 @@
 const API_BASE_URL = "/api";
-
-// Renommer la fonction pour qu'elle soit spécifique aux menus
 export async function fetchMenus() {
-  const url = "/CSDBurger/CSD-Burger/api/menus"; // Appelle la route définie pour les menus
+  const url = `${API_BASE_URL}/menus`; // Route API pour récupérer les menus
 
   try {
     const response = await fetch(url, {
