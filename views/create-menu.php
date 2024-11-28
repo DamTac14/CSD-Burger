@@ -21,7 +21,7 @@ $dishes = $dishController->showDish();
 <body>
 <?php include('header.php'); ?>
     <h1>Création des formules</h1>
-    <form id="menu-form" action="../controllers/addMenu.php" method="POST" enctype="multipart/form-data">
+    <form id="menu-form" action="../index.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="nom" class="form-label">Intitulé</label>
             <input type="text" class="form-control" id="nom" name="nom" required>
