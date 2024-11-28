@@ -6,6 +6,7 @@ require_once 'controllers/MenuController.php';
 require_once 'controllers/OrderController.php';
 require_once 'controllers/OrderItemController.php';
 require_once 'controllers/StockController.php';
+require_once 'controllers/EmployeeController.php';
 
 use Controllers\DishController;
 use Controllers\IngredientController;
@@ -13,6 +14,7 @@ use Controllers\MenuController;
 use Controllers\OrderController;
 use Controllers\OrderItemController;
 use Controllers\StockController;
+use Controllers\EmployeeController;
 
 // Database connection
 require_once 'database/database.php';
@@ -47,6 +49,10 @@ if (preg_match('/^\/api\/dishes(\/\d+)?$/', $requestUri, $matches)) {
     handleRequest($controller, $method, $id);
 } elseif (preg_match('/^\/api\/stocks(\/\d+)?$/', $requestUri, $matches)) {
     $controller = new StockController($pdo);
+    $id = $matches[1] ?? null;
+    handleRequest($controller, $method, $id);
+} elseif (preg_match('/^\/api\/employees(\/\d+)?$/', $requestUri, $matches)) {
+    $controller = new EmployeeController($pdo);
     $id = $matches[1] ?? null;
     handleRequest($controller, $method, $id);
 }  else {
