@@ -4,38 +4,70 @@ import { loadMenu, setupCategoryNavigation } from "./menu.js";
 document.addEventListener("DOMContentLoaded", () => {
   const btnStart = document.getElementById("btn-start");
   const cartItems = document.getElementById("cart-items");
-  const btnCancel = document.getElementById("btn-cancel");
-  const btnBack = document.getElementById("btn-back");
+  const bottomOfScreen = document.getElementById("bottom-of-screen");
   const btnConfirmOrder = document.getElementById("btn-confirm-order");
 
   let inactivityTimer;
   let currentScreen = "screen-home"; // Écran actif par défaut
   let cart = []; // Le panier pour stocker les articles
 
-  // Réinitialise l'inactivité
+  // Réinitialise le minuteur d'inactivité
   function resetInactivityTimer() {
     clearTimeout(inactivityTimer);
     inactivityTimer = setTimeout(() => {
       if (currentScreen !== "screen-home") {
-        showScreen("screen-home"); // Retourne à l'écran d'accueil après inactivité
+        setCurrentScreen("screen-home"); // Retourne à l'écran d'accueil après inactivité
       }
     }, 60000); // 1 minute d'inactivité
   }
 
-  // Mémorise l'écran actif et active le minuteur
+  // Définit l'écran actif et gère les états associés
   function setCurrentScreen(screen) {
     currentScreen = screen;
     showScreen(screen);
 
-    // Afficher ou masquer le bouton "Annuler commande" selon l'écran
+    // Gérer l'affichage de la barre en bas
     if (screen === "screen-menu") {
-      btnConfirmOrder.classList.remove("hidden"); // Affiche le bouton
+      bottomOfScreen.classList.remove("hidden"); // Affiche la barre
     } else {
-      btnConfirmOrder.classList.add("hidden"); // Masque le bouton
+      bottomOfScreen.classList.add("hidden"); // Masque la barre
     }
 
-    resetInactivityTimer();
+    resetInactivityTimer(); // Redémarre le minuteur
   }
+
+  // Ajoute un article au panier
+  function addToCart(item) {
+    cart.push(item);
+    updateCart();
+  }
+
+  // Met à jour le contenu du panier
+  function updateCart() {
+    const cartEmpty = document.getElementById("cart-empty");
+
+    if (cart.length > 0) {
+      cartEmpty.classList.add("hidden");
+      cartItems.classList.remove("hidden");
+      cartItems.innerHTML = ''; // Vide le contenu existant
+
+      // Ajoute chaque article dans le panier
+      cart.forEach(item => {
+        const li = document.createElement("div");
+        li.textContent = item;
+        li.classList.add("cart-item");
+        cartItems.appendChild(li);
+      });
+    } else {
+      cartEmpty.classList.remove("hidden");
+      cartItems.classList.add("hidden");
+    }
+  }
+
+  // Gestion du clic sur "Annuler commande"
+  btnConfirmOrder.addEventListener("click", () => {
+    setCurrentScreen("screen-confirm"); // Passe à l'écran de confirmation
+  });
 
   // Commencer la commande
   btnStart.addEventListener("click", () => {
@@ -50,56 +82,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Ajouter un article au panier
-  function addToCart(item) {
-    cart.push(item);
-    updateCart();
-  }
-
-  // Mettre à jour le panier à chaque ajout
-  function updateCart() {
-    cartItems.innerHTML = ''; // Vide le panier
-    cart.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = item;
-      cartItems.appendChild(li);
-    });
-  }
-
-  // Revenir en arrière sans annuler
-  btnBack.addEventListener("click", () => {
-    setCurrentScreen("screen-menu");
-  });
-
-  // Initialiser la navigation par catégorie
-  setupCategoryNavigation();
-
-  // Ajouter des articles au panier comme exemple
+  // Ajouter des articles au panier depuis le menu
   document.querySelectorAll("#menu-navigation button").forEach(btn => {
     btn.addEventListener("click", () => {
-      addToCart(`Article: ${btn.textContent}`); // Ajoute le nom de la catégorie ou autre info pertinente
+      addToCart(`Article: ${btn.textContent}`); // Exemple d'article ajouté
     });
-  });
-
-  // Fonction pour revenir à l'écran d'accueil
-  btnCancel.addEventListener("click", () => {
-    setCurrentScreen("screen-home"); // Retour à l'écran d'accueil
-  });
-
-  // Fonction pour revenir à l'écran précédent
-  btnBack.addEventListener("click", () => {
-    setCurrentScreen(currentScreen); // Retour à l'écran actuel
-  });
-
-  // Affichage du bouton Annuler commande
-  btnConfirmOrder.addEventListener("click", () => {
-    setCurrentScreen("screen-confirm"); // Afficher l'écran de confirmation
   });
 
   // Gestion de l'inactivité
   document.addEventListener("mousemove", resetInactivityTimer);
   document.addEventListener("click", resetInactivityTimer);
 
-  // Minuteur initial
+  // Initialise la navigation par catégorie
+  setupCategoryNavigation();
+
+  // Lance le minuteur initial
   resetInactivityTimer();
 });

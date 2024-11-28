@@ -1,0 +1,35 @@
+# Activer la réécriture d'URL
+RewriteEngine On
+
+# Forcer l'utilisation de HTTPS (optionnel, utile en production)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Rediriger toutes les requêtes API vers index.php
+RewriteCond %{REQUEST_URI} ^/api/ [NC]
+RewriteRule ^api/(.*)$ /index.php [L,QSA]
+
+# Gestion des routes spécifiques aux contrôleurs
+RewriteRule ^api/dishes/(\d+)$ /index.php?controller=dish&id=$1 [L,QSA]
+RewriteRule ^api/dishes$ /index.php?controller=dish [L,QSA]
+
+RewriteRule ^api/employees/(\d+)$ /index.php?controller=employee&id=$1 [L,QSA]
+RewriteRule ^api/employees$ /index.php?controller=employee [L,QSA]
+
+RewriteRule ^api/ingredients/(\d+)$ /index.php?controller=ingredient&id=$1 [L,QSA]
+RewriteRule ^api/ingredients$ /index.php?controller=ingredient [L,QSA]
+
+RewriteRule ^api/menus/(\d+)$ /index.php?controller=menu&id=$1 [L,QSA]
+RewriteRule ^api/menus$ /index.php?controller=menu [L,QSA]
+
+RewriteRule ^api/orders/(\d+)$ /index.php?controller=order&id=$1 [L,QSA]
+RewriteRule ^api/orders$ /index.php?controller=order [L,QSA]
+
+RewriteRule ^api/orderItems/(\d+)$ /index.php?controller=orderItem&id=$1 [L,QSA]
+RewriteRule ^api/orderItems$ /index.php?controller=orderItem [L,QSA]
+
+RewriteRule ^api/stocks/(\d+)$ /index.php?controller=stock&id=$1 [L,QSA]
+RewriteRule ^api/stocks$ /index.php?controller=stock [L,QSA]
+
+# Gestion des erreurs
+ErrorDocument 404 /404.html

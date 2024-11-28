@@ -41,7 +41,7 @@ export function setupCategoryNavigation() {
     if (category) {
       document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
       button.classList.add("menu-selected");
-      await loadMenu(category); // Charge les plats correspondant à la catégorie
+      await loadMenu(category);
     }
   });
 }

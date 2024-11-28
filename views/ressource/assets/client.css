@@ -119,7 +119,7 @@ body {
   width: 40%;
   height: 300px;
   margin: 10px;
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
@@ -263,4 +263,62 @@ body {
 #screen-confirm button:active {
   background-color: #ddd;
   cursor: pointer;
+}
+/* Barre en bas de l'écran */
+.bottom-of-screen {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.bottom-of-screen.hidden {
+  display: none; 
+}
+
+/* Bouton "Annuler commande" */
+#btn-confirm-order {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ff4b4b;
+  width: 10%;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#btn-confirm-order:hover {
+  background-color: #e64545;
+}
+
+/* Conteneur du panier */
+#cart-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#cart-empty {
+  color: gray;
+  font-style: italic;
+  font-size: 14px;
+}
+
+#cart-items {
+  display: flex;
+  gap: 10px;
+}
+
+.cart-item {
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #333;
 }
