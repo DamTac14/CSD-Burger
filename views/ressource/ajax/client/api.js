@@ -1,4 +1,8 @@
-const API_BASE_URL = "/CSDBurger/CSD-Burger/api";
+const isLocalhost = window.location.hostname === "localhost";
+const API_BASE_URL = isLocalhost
+  ? "/CSDBurger/CSD-Burger/api" // URL pour le développement local
+  : "/api"; // URL pour le serveur distant
+
 export async function fetchMenus() {
   const url = `${API_BASE_URL}/menus`; // Route API pour récupérer les menus
 
