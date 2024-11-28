@@ -11,11 +11,11 @@ class DishController {
         $this->pdo = $pdo;
     }
 
-    public function addDish($dishType, $name, $ingredients, $options) {
-        $sql = "INSERT INTO dish (dishType, name, ingredients, options) 
-                VALUES (?, ?, ?, ?)";
+    public function addDish($type, $name, $ingredients) {
+        $sql = "INSERT INTO dish (type, name, ingredients) 
+                VALUES (?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$dishType, $name, $ingredients, $options]);
+        $stmt->execute([$type, $name, $ingredients]);
         return true;
     }
 
@@ -27,12 +27,12 @@ class DishController {
         return $dish;
     }
 
-    public function updateDish($id, $dishType, $name, $ingredients, $options) {
-        $sql = "UPDATE dish
-                SET dishType = ?, name = ?, ingredients = ?, options = ?
+    public function updateDish($id, $type, $name, $ingredients) {
+        $sql = "UPDATE dish 
+                SET type = ?, name = ?, ingredients = ? 
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute([$dishType, $name, $ingredients,$options, $id]);
+        $result = $stmt->execute([$type, $name, $ingredients, $id]);
         return $result; 
     }
 
@@ -42,3 +42,4 @@ class DishController {
         return $stmt->execute([$id]);
     }
 }
+
