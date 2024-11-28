@@ -1,5 +1,7 @@
 <?php
 
+namespace models;
+
 class Stock {
     public int $id;
     public int $quantity;
