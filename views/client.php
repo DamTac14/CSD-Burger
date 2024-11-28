@@ -55,7 +55,8 @@
       <span>Desserts</span>
     </button>
   </nav>
-  <div id="menu-list"></div>
+  <div id="menu-list"  class="menu-list"></div>
+<div id="menu-details"></div>
 
 </div>
 

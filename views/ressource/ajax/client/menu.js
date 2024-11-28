@@ -13,13 +13,14 @@ export async function loadMenus() {
     menuItem.classList.add("menu-item");
     menuItem.innerHTML = `
       <h3>${menu.name}</h3>
-      <p>${menu.description}</p>
-      <p>Prix : ${menu.price}€</p>
-      <button data-id="${menu.id}" class="add-to-order">Ajouter</button>
+      <p>Prix : ${menu.menu_price}€</p>
+      <button data-id="${menu.id}" class="add-to-order">Sélectionner</button>
     `;
     menuList.appendChild(menuItem);
   });
 }
+
+
 export function setupCategoryNavigation() {
   const menuNav = document.getElementById("menu-navigation");
 
@@ -40,4 +41,34 @@ export function setupCategoryNavigation() {
     document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
     button.classList.add("menu-selected");
   });
+}
+
+export async function loadMenuDetails(menuId) {
+  const menuDetailsContainer = document.getElementById("menu-details");
+
+  // Appelle l'API pour récupérer les plats associés au menu
+  const menuWithDishes = await fetch(`/CSDBurger/CSD-Burger/api/menu/${menuId}/dishes`);
+  const dishes = await menuWithDishes.json();
+
+  menuDetailsContainer.innerHTML = ""; // Vide le contenu précédent
+
+  // Affiche le menu avec ses plats
+  const menuInfo = document.createElement("div");
+  menuInfo.classList.add("menu-info");
+  menuInfo.innerHTML = `
+    <h2>${dishes[0].menu_name}</h2>
+    <img src="${dishes[0].menu_image}" alt="${dishes[0].menu_name}" />
+    <h3>Plats :</h3>
+  `;
+
+  // Affiche les plats du menu
+  const dishesList = document.createElement("ul");
+  dishes.forEach(dish => {
+    const dishItem = document.createElement("li");
+    dishItem.textContent = `${dish.dish_name} - Ingrédients: ${dish.ingredients}`;
+    dishesList.appendChild(dishItem);
+  });
+
+  menuInfo.appendChild(dishesList);
+  menuDetailsContainer.appendChild(menuInfo);
 }

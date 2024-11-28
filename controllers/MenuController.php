@@ -54,7 +54,7 @@ class MenuController {
                 throw new Exception("The list of dishes is empty or invalid.");
             }
 
-            $linkStmt = $this->pdo->prepare("INSERT INTO menu_dish (id_menu, id_dish) VALUES (:id_menu, :id_dish)");
+            $linkStmt = $this->pdo->prepare("INSERT INTO menu__dish (id_menu, id_dish) VALUES (:id_menu, :id_dish)");
             foreach ($data['dishIds'] as $dishId) {
                 if (!is_numeric($dishId) || $dishId <= 0) {
                     throw new Exception("Invalid dish ID: $dishId");
@@ -74,12 +74,88 @@ class MenuController {
 
     // Méthode pour récupérer tous les menus
     public function getAll() {
-        $sql = "SELECT * FROM menu";
+        // Récupérer tous les menus
+        $sql = "SELECT id, name, image FROM menu";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $menus;
+    
+        if (!$menus) {
+            throw new Exception("No menus found.");
+        }
+    
+        $result = [];
+    
+        // Pour chaque menu, on calcule le prix total
+        foreach ($menus as $menu) {
+            // Calculer le prix du menu basé sur ses plats
+            $menuId = $menu['id'];
+            $totalCost = 0;
+    
+            // Requête pour récupérer les plats associés au menu
+            $dishSql = "
+                SELECT 
+                    d.id AS dish_id
+                FROM 
+                    dish d
+                LEFT JOIN 
+                    menu__dish md ON d.id = md.id_dish
+                WHERE 
+                    md.id_menu = ?
+            ";
+    
+            $dishStmt = $this->pdo->prepare($dishSql);
+            $dishStmt->execute([$menuId]);
+            $dishes = $dishStmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            foreach ($dishes as $dish) {
+                $dishId = $dish['dish_id'];
+    
+                // Récupérer les ingrédients du plat
+                $ingredientSql = "
+                    SELECT 
+                        i.price AS ingredient_price
+                    FROM 
+                        ingredient i
+                    LEFT JOIN 
+                        dish__ingredient di ON i.id = di.id_ingredient
+                    WHERE 
+                        di.id_dish = ?
+                ";
+    
+                $ingredientStmt = $this->pdo->prepare($ingredientSql);
+                $ingredientStmt->execute([$dishId]);
+                $ingredients = $ingredientStmt->fetchAll(PDO::FETCH_ASSOC);
+    
+                // Calculer le coût total des ingrédients pour ce plat
+                $dishCost = 0;
+                foreach ($ingredients as $ingredient) {
+                    $dishCost += $ingredient['ingredient_price'];
+                }
+    
+                // Ajouter le coût du plat au total du menu
+                $totalCost += $dishCost;
+            }
+    
+            // Appliquer la TVA et la marge
+            $tva = 0.10;  // 10% de TVA
+            $marge = 0.20;  // 20% de marge
+    
+            $priceWithTva = $totalCost * (1 + $tva);
+            $finalPrice = $priceWithTva * (1 + $marge);
+    
+            // Ajouter le menu avec son prix calculé
+            $result[] = [
+                'id' => $menu['id'],
+                'name' => $menu['name'],
+                'image' => $menu['image'],
+                'menu_price' => round($finalPrice, 2),  // Prix du menu avec TVA et marge
+            ];
+        }
+    
+        return $result;
     }
+    
 
     public function getMenuWithDishes($data) {
         if (!isset($data['id'])) {
@@ -99,7 +175,7 @@ class MenuController {
             FROM 
                 menu m
             LEFT JOIN 
-                menu_dish md ON m.id = md.id_menu
+                menu__dish md ON m.id = md.id_menu
             LEFT JOIN 
                 dish d ON md.id_dish = d.id
             WHERE 
@@ -158,11 +234,11 @@ class MenuController {
         $stmt->execute([$name, $imagePath, $id]);
 
         // Mise à jour des plats associés
-        $linkStmt = $this->pdo->prepare("DELETE FROM menu_dish WHERE id_menu = ?");
+        $linkStmt = $this->pdo->prepare("DELETE FROM menu__dish WHERE id_menu = ?");
         $linkStmt->execute([$id]);
 
         foreach ($dishIds as $dishId) {
-            $linkStmt = $this->pdo->prepare("INSERT INTO menu_dish (id_menu, id_dish) VALUES (?, ?)");
+            $linkStmt = $this->pdo->prepare("INSERT INTO menu__dish (id_menu, id_dish) VALUES (?, ?)");
             $linkStmt->execute([$id, $dishId]);
         }
 
@@ -184,4 +260,88 @@ class MenuController {
 
         return true;
     }
+
+    public function getMenuWithCost($data) {
+        if (!isset($data['id'])) {
+            throw new Exception("Missing ID parameter");
+        }
+    
+        $id = $data['id'];
+    
+        // Requête pour récupérer le menu avec les plats associés
+        $sql = "
+            SELECT 
+                m.id AS menu_id, 
+                m.name AS menu_name, 
+                m.image AS menu_image, 
+                d.id AS dish_id, 
+                d.name AS dish_name, 
+                d.ingredients
+            FROM 
+                menu m
+            LEFT JOIN 
+                menu__dish md ON m.id = md.id_menu
+            LEFT JOIN 
+                dish d ON md.id_dish = d.id
+            WHERE 
+                m.id = ?
+        ";
+    
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $menuWithDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        if (!$menuWithDishes) {
+            throw new Exception("Menu not found or has no dishes.");
+        }
+    
+        // Calculer le coût total des ingrédients du menu
+        $totalCost = 0;
+        foreach ($menuWithDishes as $dish) {
+            $dishId = $dish['dish_id'];
+    
+            // Récupérer les ingrédients du plat
+            $ingredientSql = "
+                SELECT 
+                    i.id AS ingredient_id, 
+                    i.name AS ingredient_name, 
+                    i.price AS ingredient_price
+                FROM 
+                    ingredient i
+                LEFT JOIN 
+                    dish__ingredient di ON i.id = di.id_ingredient
+                WHERE 
+                    di.id_dish = ?
+            ";
+    
+            $ingredientStmt = $this->pdo->prepare($ingredientSql);
+            $ingredientStmt->execute([$dishId]);
+            $ingredients = $ingredientStmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Calculer le coût total des ingrédients pour ce plat
+            $dishCost = 0;
+            foreach ($ingredients as $ingredient) {
+                $dishCost += $ingredient['ingredient_price'];
+            }
+    
+            // Ajouter le coût du plat au total du menu
+            $totalCost += $dishCost;
+        }
+    
+        // Appliquer la TVA de 10% et une marge légère de 20% (par exemple)
+        $tva = 0.10;
+        $marge = 0.20;
+        $priceWithTva = $totalCost * (1 + $tva);
+        $finalPrice = $priceWithTva * (1 + $marge);
+    
+        return [
+            'menu_id' => $id,
+            'menu_name' => $menuWithDishes[0]['menu_name'],
+            'menu_image' => $menuWithDishes[0]['menu_image'],
+            'total_cost' => $totalCost,
+            'price_with_tva' => $priceWithTva,
+            'final_price' => $finalPrice
+        ];
+    }
+    
 }

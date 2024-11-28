@@ -49,7 +49,7 @@ if (preg_match('/^\/api\/dishes(\/\d+)?$/', $requestUri, $matches)) {
     $controller = new StockController($pdo);
     $id = $matches[1] ?? null;
     handleRequest($controller, $method, $id);
-} else {
+}  else {
     // Route not found
     http_response_code(404);
     echo json_encode(['error' => 'Route non trouvée']);
