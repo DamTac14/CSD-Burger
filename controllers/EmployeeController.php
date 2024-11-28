@@ -19,7 +19,7 @@ class EmployeeController {
             throw new Exception("Missing parameters");
         }
 
-        $sql = "INSERT INTO employees (firstName, lastName, userName, role, password, isActive, hireDate, departureDate) 
+        $sql = "INSERT INTO Employee (firstName, lastName, userName, role, password, isActive, hireDate, departureDate) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -29,7 +29,7 @@ class EmployeeController {
 
     // Méthode pour récupérer tous les employés
     public function getAll() {
-        $sql = "SELECT * FROM employees";
+        $sql = "SELECT * FROM Employee";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,7 +44,7 @@ class EmployeeController {
 
         $id = $data['id'];
 
-        $sql = "SELECT * FROM employees WHERE id = ?";
+        $sql = "SELECT * FROM Employee WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
 
@@ -62,7 +62,7 @@ class EmployeeController {
             throw new Exception("Missing parameters");
         }
 
-        $sql = "UPDATE employees 
+        $sql = "UPDATE Employee 
                 SET firstName = ?, lastName = ?, userName = ?, role = ?, password = ?, isActive = ?, hireDate = ?, departureDate = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -78,7 +78,7 @@ class EmployeeController {
 
         $id = $data['id'];
 
-        $sql = "DELETE FROM employees WHERE id = ?";
+        $sql = "DELETE FROM Employee WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
