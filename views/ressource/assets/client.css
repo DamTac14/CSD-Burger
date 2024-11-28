@@ -216,3 +216,51 @@ body {
   height: 50px;
   margin-bottom: 10px;
 }
+
+/* Centrer le contenu de l'écran de confirmation */
+#screen-confirm {
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* occupe toute la hauteur de l'écran */
+  text-align: center; /* texte centré */
+}
+
+.confirm-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 10px;
+  color: white;
+}
+
+#screen-confirm p {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+#screen-confirm button {
+  background-color: #edc47f;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+#screen-confirm button img {
+  margin-right: 8px;
+  width: 20px; /* Ajuste la taille de l'icône */
+  height: 20px;
+}
+
+/* Ajouter un effet pour les boutons au survol */
+#screen-confirm button:active {
+  background-color: #ddd;
+  cursor: pointer;
+}
