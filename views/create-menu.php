@@ -20,7 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'image' => $_FILES['image'] ?? null,
             'dishIds' => $_POST['dishes'] ?? []
         ]);
+
         $message = "Menu créé avec succès !";
+        header('Location: menu-list.php');
     } catch (Exception $e) {
         $message = "Erreur : " . $e->getMessage();
     }
