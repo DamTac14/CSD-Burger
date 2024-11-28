@@ -20,7 +20,6 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="ressource/assets/header.css">
-
     <title>Listes des formules</title>
 </head>
 
@@ -32,12 +31,12 @@ try {
         <p>Menu ajouté avec succès !</p>
     <?php endif; ?>
 
-  
     <ul>
         <?php foreach ($menus as $menu): ?>
             <li>
                 <h2><?php echo htmlspecialchars($menu['name']); ?></h2>
                 <img src="<?php echo htmlspecialchars($menu['image']); ?>" alt="<?php echo htmlspecialchars($menu['name']); ?>" width="150">
+                <p>Prix du menu : <?php echo htmlspecialchars($menu['menu_price']); ?> €</p>
             </li>
         <?php endforeach; ?>
     </ul>
