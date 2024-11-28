@@ -1,4 +1,7 @@
 import { fetchDishes, fetchMenus } from "./api.js";
+
+
+
 export async function loadMenus() {
   const menuList = document.getElementById("menu-list");
 
@@ -8,17 +11,21 @@ export async function loadMenus() {
 
   // Affiche chaque menu avec son prix et ses allergènes
   menus.forEach(menu => {
+    const allergens = menu.allergens.length > 0 ? menu.allergens.join(", ") : "Aucun";
+
     const menuItem = document.createElement("div");
     menuItem.classList.add("menu-item");
     menuItem.innerHTML = `
+      <img src="${menu.image}" alt="${menu.name}">
       <h3>${menu.name}</h3>
       <p>Prix : ${menu.menu_price}€</p>
-      <p>Allergènes : ${menu.allergens.join(", ")}</p>
+      <p class='menu-item-allergene'>Allergènes :</br> ${allergens}</p>
       <button data-id="${menu.id}" class="add-to-order">Sélectionner</button>
     `;
     menuList.appendChild(menuItem);
   });
 }
+
 
 
 
