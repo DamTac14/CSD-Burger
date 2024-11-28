@@ -73,7 +73,7 @@ body {
     font-size: 7rem;
     line-height:1.2em;
     text-transform: uppercase;
-    pointer-events: auto; /* Rend le bouton cliquable */
+    pointer-events: auto; 
     cursor: pointer;
     font-weight: 900;
 }
@@ -102,4 +102,39 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+
+#screen-service {
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+}
+
+.service-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 40%;
+  height: 300px;
+  margin: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.service-btn img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.service-btn:active {
+  background-color: #edc47f;
+  color: black;
+  transform: scale(1.05);
 }

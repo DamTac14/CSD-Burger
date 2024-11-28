@@ -19,15 +19,22 @@
 </div>
 
     <!-- Écran 2 : Choix du type de service -->
-    <div class="screen hidden takeaway" id="screen-service">
-      <button class="service-btn" data-service="takeaway">À emporter</button>
-      <button class="service-btn" data-service="dinein">Sur place</button>
-    </div>
+<div class="screen hidden takeaway" id="screen-service">
+  <button class="service-btn" data-service="takeaway">
+    <img src="ressource/images/icons/a-emporter.png" alt="À emporter">
+    <span>À emporter</span>
+  </button>
+  <button class="service-btn" data-service="dinein">
+    <img src="ressource/images/icons/fast-food.png" alt="Sur place">
+    <span>Sur place</span>
+  </button>
+</div>
+
 
     <!-- Écran 3 : Menus -->
 <div class="screen hidden" id="screen-menu">
   <nav id="menu-navigation">
-    <button data-category="menus">Menus</button>
+    <button data-category="menus" class="menu-selected">Menus</button>
     <button data-category="burgers">Burgers</button>
     <button data-category="sides">Accompagnements</button>
     <button data-category="drinks">Boissons</button>

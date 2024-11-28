@@ -6,7 +6,7 @@ class Dish__Ingredient {
     private int $dish;
     private int $ingredient;
     private int $quantity;
-    private bool $is_additional;
+    private bool $isAdditional;
     private string $status;
 
     # Constructor
@@ -14,13 +14,13 @@ class Dish__Ingredient {
         int $dish,
         int $ingredient,
         int $quantity,
-        bool $is_additional,
+        bool $isAdditional,
         string $status
     ){
         $this->dish = $dish;
         $this->ingredient = $ingredient;
         $this->quantity = $quantity;
-        $this->is_additional = $is_additional;
+        $this->isAdditional = $isAdditional;
         $this->status = $status;
     }
 
@@ -28,7 +28,7 @@ class Dish__Ingredient {
     public function getDish() : int {return $this->dish;}
     public function getIngredient() : int {return $this->ingredient;}
     public function getQuantity() : int {return $this->quantity;}
-    public function getIsAdditional() : bool {return $this->is_additional;}
+    public function getIsAdditional() : bool {return $this->isAdditional;}
     public function getStatus() : string {return $this->status;}
 
     # Setters
