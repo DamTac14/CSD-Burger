@@ -1,31 +1,10 @@
-<?php  
+<?php 
 
-use Controllers\MenuController;
 use Controllers\DishController;
 
 include_once '../database/database.php';
-include_once '../controllers/MenuController.php';
 include_once '../controllers/DishController.php';
-
-
-$pdo = getDB();
-$menuController = new MenuController($pdo);
-$dishController = new DishController($pdo);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    try {
-        $name = $_POST['nom'];
-        $image = $_FILES['image'];
-        $dishIds = isset($_POST['dishes']) ? $_POST['dishes'] : [];
-
-        $menuId = $menuController->addMenu($name, $image, $dishIds);
-
-        $successMessage = "Le menu a été créé avec succès (ID : $menuId).";
-    } catch (Exception $e) {
-        $errorMessage = "Erreur lors de la création du menu : " . $e->getMessage();
-    }
-}
-
+$dishController = new DishController(getDB());
 $dishes = $dishController->showDish();
 
 ?>
@@ -42,15 +21,7 @@ $dishes = $dishController->showDish();
 <body>
 <?php include('header.php'); ?>
     <h1>Création des formules</h1>
-
-    <!-- Affichage des messages d'erreur ou de succès -->
-    <?php if (!empty($successMessage)): ?>
-        <div class="success-message"><?= htmlspecialchars($successMessage) ?></div>
-    <?php elseif (!empty($errorMessage)): ?>
-        <div class="error-message"><?= htmlspecialchars($errorMessage) ?></div>
-    <?php endif; ?>
-
-    <form id="menu-form" action="" method="POST" enctype="multipart/form-data">
+    <form id="menu-form" action="../controllers/addMenu.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="nom" class="form-label">Intitulé</label>
             <input type="text" class="form-control" id="nom" name="nom" required>
