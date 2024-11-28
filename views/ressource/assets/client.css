@@ -13,17 +13,24 @@ body {
     height: 100vh;
     overflow: hidden;
     position: relative;
+    background-image: url('../images/background.png');
   }
   
   .screen {
-    display: none;
-    flex-direction: column;
-    align-items: center;
+    width: 95%; /* Largeur avec marge externe */
+    height: 95%; /* Hauteur avec marge externe */
+    display: flex;
     justify-content: center;
-    height: 100%;
+    align-items: flex-start;
+    position: relative;
+}
+
+.background {
     width: 100%;
-  }
-  
+    height: 100%;
+    object-fit: contain; 
+    z-index: 1;
+}
   .screen.active {
     display: flex;
   }
@@ -43,7 +50,56 @@ body {
     cursor: pointer;
   }
   
-  button:hover {
-    background-color: #c4924b;
-  }
   
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none; 
+}
+
+#btn-start {
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    padding: 100vh 100vw;
+    border: none;
+    border-radius: 5px;
+    font-size: 7rem;
+    line-height:1.2em;
+    text-transform: uppercase;
+    pointer-events: auto; /* Rend le bouton cliquable */
+    cursor: pointer;
+    font-weight: 900;
+}
+
+
+#menu-navigation {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+}
+
+#menu-navigation button {
+  padding: 10px 20px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#menu-navigation button:hover {
+  background-color: #bbb;
+}
+
+#menu-list div {
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

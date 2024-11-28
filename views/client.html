@@ -4,39 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Borne CSD Burgers</title>
-  <link rel="stylesheet" href="/ressource/assets/client.css">
+  <link rel="stylesheet" href="ressource/assets/client.css">
+  <script type="module" src="ressource/ajax/client/main.js" defer></script>
+
 </head>
 <body>
   <div id="app">
     <!-- Écran 1 : Accueil -->
-    <div class="screen" id="screen-home">
-      <img src="assets/home.jpg" alt="Accueil" class="background">
-      <button id="btn-start">Touchez l'écran pour continuer</button>
-    </div>
+<div class="screen active" id="screen-home">
+  <img src="ressource/images/waiting.png" alt="Accueil" class="background" />
+  <div class="overlay">
+    <button id="btn-start">Touchez l'écran pour continuer</button>
+  </div>
+</div>
 
     <!-- Écran 2 : Choix du type de service -->
-    <div class="screen hidden" id="screen-service">
-      <h1>Service</h1>
+    <div class="screen hidden takeaway" id="screen-service">
       <button class="service-btn" data-service="takeaway">À emporter</button>
       <button class="service-btn" data-service="dinein">Sur place</button>
     </div>
 
     <!-- Écran 3 : Menus -->
-    <div class="screen hidden" id="screen-menu">
-      <h1>Menus</h1>
-      <div id="menu-list"></div>
-      <button id="btn-confirm-order">Confirmer commande</button>
-    </div>
+<div class="screen hidden" id="screen-menu">
+  <nav id="menu-navigation">
+    <button data-category="menus">Menus</button>
+    <button data-category="burgers">Burgers</button>
+    <button data-category="sides">Accompagnements</button>
+    <button data-category="drinks">Boissons</button>
+    <button data-category="desserts">Desserts</button>
+  </nav>
+  <div id="menu-list"></div>
+  <button id="btn-confirm-order">Annuler commande</button>
+</div>
 
     <!-- Écran 4 : Confirmation -->
     <div class="screen hidden" id="screen-confirm">
-      <h2>Confirmation</h2>
       <p>Êtes-vous sûr de vouloir annuler votre commande ?</p>
       <button id="btn-cancel">Oui</button>
       <button id="btn-back">Non</button>
     </div>
   </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
