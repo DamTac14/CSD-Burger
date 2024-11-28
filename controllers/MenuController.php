@@ -81,6 +81,27 @@ class MenuController {
         return $menus;
     }
 
+    public function getMenusWithDishes() {
+        $sql = "
+            SELECT 
+                m.id AS menu_id, 
+                m.name AS menu_name, 
+                m.image AS menu_image, 
+                d.id AS dish_id, 
+                d.name AS dish_name
+            FROM 
+                menu m
+            LEFT JOIN 
+                menu_dish md ON m.id = md.id_menu
+            LEFT JOIN 
+                dish d ON md.id_dish = d.id
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+
     // Méthode pour récupérer un menu par ID
     public function getById($data) {
         if (!isset($data['id'])) {

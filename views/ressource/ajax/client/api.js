@@ -1,4 +1,4 @@
-const API_BASE_URL = "/api";
+const API_BASE_URL = "/CSDBurger/CSD-Burger/api";
 export async function fetchMenus() {
   const url = `${API_BASE_URL}/menus`; // Route API pour récupérer les menus
 
