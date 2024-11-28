@@ -6,59 +6,62 @@
   <title>Borne CSD Burgers</title>
   <link rel="stylesheet" href="ressource/assets/client.css">
   <script type="module" src="ressource/ajax/client/main.js" defer></script>
-
 </head>
 <body>
   <div id="app">
     <!-- Écran 1 : Accueil -->
-<div class="screen active" id="screen-home">
-  <img src="ressource/images/waiting.png" alt="Accueil" class="background" />
-  <div class="overlay">
-    <button id="btn-start">Touchez l'écran pour continuer</button>
-  </div>
-</div>
+    <div class="screen active" id="screen-home">
+      <img src="ressource/images/waiting.png" alt="Accueil" class="background" />
+      <div class="overlay">
+        <button id="btn-start">Touchez l'écran pour continuer</button>
+      </div>
+    </div>
 
     <!-- Écran 2 : Choix du type de service -->
-<div class="screen hidden takeaway" id="screen-service">
-  <button class="service-btn" data-service="takeaway">
-    <img src="ressource/images/icons/a-emporter.png" alt="À emporter">
-    <span>À emporter</span>
-  </button>
-  <button class="service-btn" data-service="dinein">
-    <img src="ressource/images/icons/fast-food.png" alt="Sur place">
-    <span>Sur place</span>
-  </button>
-</div>
-
+    <div class="screen hidden takeaway" id="screen-service">
+      <button class="service-btn" data-service="takeaway">
+        <img src="ressource/images/icons/a-emporter.png" alt="À emporter">
+        <span>À emporter</span>
+      </button>
+      <button class="service-btn" data-service="dinein">
+        <img src="ressource/images/icons/fast-food.png" alt="Sur place">
+        <span>Sur place</span>
+      </button>
+    </div>
 
     <!-- Écran 3 : Menus -->
-<div class="screen hidden" id="screen-menu">
-  <nav id="menu-navigation">
-    <button data-category="menus" class="menu-selected">
-      <img src="ressource/images/icons/menus.png" alt="Menus">
-      <span>Menus</span>
-    </button>
-    <button data-category="burgers">
-      <img src="ressource/images/icons/burgers.png" alt="Burgers">
-      <span>Burgers</span>
-    </button>
-    <button data-category="sides">
-      <img src="ressource/images/icons/frites.png" alt="Accompagnements">
-      <span>Petite faim</span>
-    </button>
-    <button data-category="drinks">
-      <img src="ressource/images/icons/drinks.png" alt="Boissons">
-      <span>Boissons</span>
-    </button>
-    <button data-category="desserts">
-      <img src="ressource/images/icons/desserts.png" alt="Desserts">
-      <span>Desserts</span>
-    </button>
-  </nav>
-  <div id="menu-list"></div>
-  <button id="btn-confirm-order">Annuler commande</button>
-</div>
+    <div class="screen hidden" id="screen-menu">
+      <nav id="menu-navigation">
+        <button data-category="menus" class="menu-selected">
+          <img src="ressource/images/icons/menus.png" alt="Menus">
+          <span>Menus</span>
+        </button>
+        <button data-category="burgers">
+          <img src="ressource/images/icons/burgers.png" alt="Burgers">
+          <span>Burgers</span>
+        </button>
+        <button data-category="sides">
+          <img src="ressource/images/icons/frites.png" alt="Accompagnements">
+          <span>Petite faim</span>
+        </button>
+        <button data-category="drinks">
+          <img src="ressource/images/icons/drinks.png" alt="Boissons">
+          <span>Boissons</span>
+        </button>
+        <button data-category="desserts">
+          <img src="ressource/images/icons/desserts.png" alt="Desserts">
+          <span>Desserts</span>
+        </button>
+      </nav>
+      <div id="menu-list"></div>
 
+      <!-- Panier -->
+      <div id="cart">
+        <h3>Panier</h3>
+        <ul id="cart-items"></ul>
+        <button id="btn-confirm-order">Annuler commande</button>
+      </div>
+    </div>
 
     <!-- Écran 4 : Confirmation -->
     <div class="screen hidden" id="screen-confirm">

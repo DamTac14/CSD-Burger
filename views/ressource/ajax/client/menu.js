@@ -27,16 +27,23 @@ export function setupServiceButtons() {
     });
   });
 }
+
+
 export function setupCategoryNavigation() {
   const menuNav = document.getElementById("menu-navigation");
 
   menuNav.addEventListener("click", async (event) => {
-    const category = event.target.dataset.category;
+    // Vérifie si le clic est sur un bouton ou un de ses enfants
+    const button = event.target.closest("button");
+    if (!button) return; // Ignore si ce n'est pas un bouton
+
+    const category = button.dataset.category;
     if (category) {
       document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
-      event.target.classList.add("menu-selected");
+      button.classList.add("menu-selected");
       await loadMenu(category); // Charge les plats correspondant à la catégorie
     }
   });
 }
+
 
