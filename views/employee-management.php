@@ -37,6 +37,23 @@
             th, td{
                 height: 50px;
             }
+            #add-employee-button{
+                position: absolute;
+                bottom: 20px;
+                right: 50%;
+                left: auto;
+                background-color: #546C98;
+                color: white;
+                border-radius: 25px;
+                border: 0;
+                padding: 4px 20px;
+                font-size: 4rem;
+                cursor: pointer;
+                text-decoration: none;
+            }
+            #add-employee-button:hover{
+                background-color: #435984;
+            }
         </style>
         <title>Gestion des équipiers</title>
     </head>
