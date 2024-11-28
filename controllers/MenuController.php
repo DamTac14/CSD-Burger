@@ -81,24 +81,40 @@ class MenuController {
         return $menus;
     }
 
-    public function getMenusWithDishes() {
+    public function getMenuWithDishes($data) {
+        if (!isset($data['id'])) {
+            throw new Exception("Missing ID parameter");
+        }
+    
+        $id = $data['id'];
+    
         $sql = "
             SELECT 
                 m.id AS menu_id, 
                 m.name AS menu_name, 
                 m.image AS menu_image, 
                 d.id AS dish_id, 
-                d.name AS dish_name
+                d.name AS dish_name, 
+                d.ingredients
             FROM 
                 menu m
             LEFT JOIN 
                 menu_dish md ON m.id = md.id_menu
             LEFT JOIN 
                 dish d ON md.id_dish = d.id
+            WHERE 
+                m.id = ?
         ";
+    
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute([$id]);
+        $menuWithDishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        if ($menuWithDishes) {
+            return $menuWithDishes;
+        } else {
+            throw new Exception("Menu or dishes not found");
+        }
     }
     
 
