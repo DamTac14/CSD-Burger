@@ -300,7 +300,7 @@ switch ($method) {
         $result = $menuController->addMenu(
             $data['name'],
             $data['image'],
-            $data['includeDishes'] // Liste des plats à inclure dans le menu
+            $data['dishIds'] // Liste des plats à inclure dans le menu
         );
         if ($result === true) {
             http_response_code(201);

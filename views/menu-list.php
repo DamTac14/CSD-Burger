@@ -1,6 +1,12 @@
 <?php
 
+include_once '../database/database.php';
+include_once '../controllers/MenuController.php';
 
+$pdo = getDB();
+$menuController = new Controllers\MenuController($pdo);
+$menus = $menuController->showMenu();
+?>
 ?>
 
 
@@ -16,6 +22,16 @@
 <body>
 <?php include('header.php'); ?>
     <h1>Liste des formules</h1>
-    
+    <?php if (isset($_GET['success'])): ?>
+        <p>Menu ajouté avec succès !</p>
+    <?php endif; ?>
+    <ul>
+        <?php foreach ($menus as $menu): ?>
+            <li>
+                <h2><?php echo htmlspecialchars($menu['name']); ?></h2>
+                <img src="<?php echo htmlspecialchars($menu['image']); ?>" alt="<?php echo htmlspecialchars($menu['name']); ?>" width="150">
+            </li>
+        <?php endforeach; ?>
+    </ul>
 </body>
 </html>
