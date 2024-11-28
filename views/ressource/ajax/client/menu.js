@@ -1,4 +1,4 @@
-import { fetchDishes } from "./api.js";
+import { fetchDishes, fetchMenus } from "./api.js";
 
 export async function loadMenu(category) {
   const menuList = document.getElementById("menu-list");
@@ -22,28 +22,47 @@ export async function loadMenu(category) {
     `;
     menuList.appendChild(menuItem);
   });
+}export async function loadMenu() {
+  const menuList = document.getElementById("menu-list");
+
+  // Récupère uniquement les menus
+  const menus = await fetchMenus();
+  menuList.innerHTML = ""; // Vide le contenu précédent
+
+  // Affiche les menus
+  menus.forEach(menu => {
+    const menuItem = document.createElement("div");
+    menuItem.classList.add("menu-item");
+    menuItem.innerHTML = `
+      <h3>${menu.name}</h3>
+      <p>${menu.ingredients.join(", ")}</p>
+      <p>Prix : ${menu.price}€</p>
+      <button data-id="${menu.id}" class="add-to-order">Ajouter</button>
+    `;
+    menuList.appendChild(menuItem);
+  });
 }
+
 export function setupCategoryNavigation() {
   const menuNav = document.getElementById("menu-navigation");
 
   menuNav.addEventListener("click", async (event) => {
     const button = event.target.closest("button");
-    if (!button) return; // Ignore si ce n'est pas un bouton
+    if (!button) return;
 
     const category = button.dataset.category;
 
-    if (category) {
-      // Changer la classe de sélection
-      document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
-      button.classList.add("menu-selected");
-
-      // Charger le menu en fonction de la catégorie sélectionnée
-      if (category === "menus") {
-        await loadMenu();  // Charger les menus uniquement
-      } else {
-        // Ajouter le comportement pour d'autres catégories si nécessaire
-        console.log(`Catégorie sélectionnée : ${category}`);
-      }
+    if (category === "menus") {
+      // Charger uniquement les menus
+      await loadMenu();
+    } else {
+      console.log(`Catégorie sélectionnée : ${category}`);
+      // Tu pourras gérer d'autres catégories ici plus tard
     }
+
+    // Mettre à jour la classe "menu-selected"
+    document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
+    button.classList.add("menu-selected");
   });
 }
+

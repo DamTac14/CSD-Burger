@@ -2,12 +2,25 @@ const API_BASE_URL = "/api";
 
 // Renommer la fonction pour qu'elle soit spécifique aux menus
 export async function fetchMenus() {
-  const response = await fetch(`${API_BASE_URL}/menus`);
-  if (!response.ok) {
-    console.error("Erreur de récupération des menus", response.statusText);
+  const url = "/CSDBurger/CSD-Burger/api/menus"; // Appelle la route définie pour les menus
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erreur lors de la récupération des menus : ${response.statusText}`);
+    }
+
+    return await response.json(); // Retourne les menus au format JSON
+  } catch (error) {
+    console.error("Erreur dans fetchMenus :", error);
     return [];
   }
-  return await response.json();
 }
 
 
