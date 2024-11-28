@@ -1,5 +1,5 @@
 import { showScreen } from "./navigation.js";
-import { loadMenu, setupCategoryNavigation } from "./menu.js";
+import { loadMenus, setupCategoryNavigation } from "./menu.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const btnStart = document.getElementById("btn-start");
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(`Service choisi : ${serviceChoice}`); // Pour le débogage
       }
 
-      await loadMenu(); // Charge le menu complet
+      await loadMenus(); // Charge le menu complet
       setCurrentScreen("screen-menu"); // Affiche le menu après avoir fait le choix
     });
   });

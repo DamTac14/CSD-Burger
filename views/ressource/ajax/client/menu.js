@@ -1,24 +1,21 @@
-import { fetchDishes } from "./api.js";
+import { fetchDishes, fetchMenus } from "./api.js";
 
-export async function loadMenu(category) {
+export async function loadMenus() {
   const menuList = document.getElementById("menu-list");
 
-  // Fonction pour récupérer les plats en fonction de la catégorie
-  const dishes = await fetchDishes(); // Ici, tu peux adapter cette fonction pour qu'elle prenne en compte la catégorie
+  // Appelle l'API pour récupérer les menus
+  const menus = await fetchMenus();
   menuList.innerHTML = ""; // Vide le contenu précédent
 
-  // Filtrer les plats en fonction de la catégorie
-  const filteredDishes = dishes.filter(dish => dish.category === category);
-
-  // Afficher les plats filtrés dans la liste
-  filteredDishes.forEach(dish => {
+  // Affiche chaque menu
+  menus.forEach(menu => {
     const menuItem = document.createElement("div");
     menuItem.classList.add("menu-item");
     menuItem.innerHTML = `
-      <h3>${dish.name}</h3>
-      <p>${dish.ingredients.join(", ")}</p>
-      <p>Prix : ${dish.price}€</p>
-      <button data-id="${dish.id}" class="add-to-order">Ajouter</button>
+      <h3>${menu.name}</h3>
+      <p>${menu.description}</p>
+      <p>Prix : ${menu.price}€</p>
+      <button data-id="${menu.id}" class="add-to-order">Ajouter</button>
     `;
     menuList.appendChild(menuItem);
   });
@@ -28,22 +25,19 @@ export function setupCategoryNavigation() {
 
   menuNav.addEventListener("click", async (event) => {
     const button = event.target.closest("button");
-    if (!button) return; // Ignore si ce n'est pas un bouton
+    if (!button) return;
 
     const category = button.dataset.category;
 
-    if (category) {
-      // Changer la classe de sélection
-      document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
-      button.classList.add("menu-selected");
-
-      // Charger le menu en fonction de la catégorie sélectionnée
-      if (category === "menus") {
-        await loadMenu();  // Charger les menus uniquement
-      } else {
-        // Ajouter le comportement pour d'autres catégories si nécessaire
-        console.log(`Catégorie sélectionnée : ${category}`);
-      }
+    if (category === "menus") {
+      // Charge et affiche uniquement les menus
+      await loadMenus();
+    } else {
+      console.log(`Catégorie non prise en charge pour le moment : ${category}`);
     }
+
+    // Mettre à jour l'état visuel du bouton sélectionné
+    document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
+    button.classList.add("menu-selected");
   });
 }
