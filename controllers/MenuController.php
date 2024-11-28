@@ -3,8 +3,7 @@
 namespace Controllers;
 
 use PDO;
-include_once '../database/database.php';
-class MenuController {
+include_once __DIR__ . '/../database/database.php';class MenuController {
     private $pdo;
     
     public function __construct($pdo) {

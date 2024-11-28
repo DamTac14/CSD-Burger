@@ -1,11 +1,17 @@
 import { fetchDishes } from "./api.js";
 
-export async function loadMenu() {
+export async function loadMenu(category) {
   const menuList = document.getElementById("menu-list");
-  const dishes = await fetchDishes();
 
-  menuList.innerHTML = "";
-  dishes.forEach(dish => {
+  // Fonction pour récupérer les plats en fonction de la catégorie
+  const dishes = await fetchDishes(); // Ici, tu peux adapter cette fonction pour qu'elle prenne en compte la catégorie
+  menuList.innerHTML = ""; // Vide le contenu précédent
+
+  // Filtrer les plats en fonction de la catégorie
+  const filteredDishes = dishes.filter(dish => dish.category === category);
+
+  // Afficher les plats filtrés dans la liste
+  filteredDishes.forEach(dish => {
     const menuItem = document.createElement("div");
     menuItem.classList.add("menu-item");
     menuItem.innerHTML = `
@@ -17,33 +23,27 @@ export async function loadMenu() {
     menuList.appendChild(menuItem);
   });
 }
-
-// Gestion des boutons de navigation (À emporter / Sur place)
-export function setupServiceButtons() {
-  const serviceButtons = document.querySelectorAll('.service-btn');
-  serviceButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      showScreen('screen-menu'); // Affiche l'écran menu
-    });
-  });
-}
-
-
 export function setupCategoryNavigation() {
   const menuNav = document.getElementById("menu-navigation");
 
   menuNav.addEventListener("click", async (event) => {
-    // Vérifie si le clic est sur un bouton ou un de ses enfants
     const button = event.target.closest("button");
     if (!button) return; // Ignore si ce n'est pas un bouton
 
     const category = button.dataset.category;
+
     if (category) {
+      // Changer la classe de sélection
       document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
       button.classList.add("menu-selected");
-      await loadMenu(category);
+
+      // Charger le menu en fonction de la catégorie sélectionnée
+      if (category === "menus") {
+        await loadMenu();  // Charger les menus uniquement
+      } else {
+        // Ajouter le comportement pour d'autres catégories si nécessaire
+        console.log(`Catégorie sélectionnée : ${category}`);
+      }
     }
   });
 }
-
-

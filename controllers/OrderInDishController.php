@@ -3,8 +3,7 @@
 namespace Controllers;
 
 use PDO;
-include_once '../database/database.php';
-class OrderInDishController {
+include_once __DIR__ . '/../database/database.php';class OrderInDishController {
     private $pdo;
     
     public function __construct($pdo) {

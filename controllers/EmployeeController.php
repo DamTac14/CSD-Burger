@@ -3,8 +3,7 @@
 namespace Controllers;
 
 use PDO;
-include_once '../database/database.php';
-
+include_once __DIR__ . '/../database/database.php';
 
 class EmployeeController {
     private $pdo;

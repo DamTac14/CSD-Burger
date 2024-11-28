@@ -1,4 +1,13 @@
 <?php
+
+require_once 'controllers/DishController.php';
+require_once 'controllers/EmployeeController.php';
+require_once 'controllers/IngredientController.php';
+require_once 'controllers/MenuController.php';
+require_once 'controllers/OrderController.php';
+require_once 'controllers/OrderItemController.php';
+require_once 'controllers/StockController.php';
+
 use Controllers\DishController;
 use Controllers\EmployeeController;
 use Controllers\IngredientController;
@@ -9,7 +18,7 @@ use Controllers\StockController;
 
  
 
-require_once '/database/database.php';
+require_once 'database/database.php';
 
 $pdo = getDB();
 $dishController = new DishController($pdo);

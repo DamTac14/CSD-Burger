@@ -3,8 +3,7 @@
 namespace Controllers;
 
 use PDO;
-include_once '../database/database.php';
-
+include_once __DIR__ . '/../database/database.php';
 class DishController {
     private $pdo;
     
@@ -13,7 +12,7 @@ class DishController {
     }
 
     public function addDish($dishType, $name, $ingredients, $options) {
-        $sql = "INSERT INTO dishs (dishType, name, ingredients, options) 
+        $sql = "INSERT INTO dish (dishType, name, ingredients, options) 
                 VALUES (?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$dishType, $name, $ingredients, $options]);
@@ -21,7 +20,7 @@ class DishController {
     }
 
     public function showDish(): mixed {
-        $sql = "SELECT * FROM dishs";
+        $sql = "SELECT * FROM dish";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $dish = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +28,7 @@ class DishController {
     }
 
     public function updateDish($id, $dishType, $name, $ingredients, $options) {
-        $sql = "UPDATE dishs
+        $sql = "UPDATE dish
                 SET dishType = ?, name = ?, ingredients = ?, options = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -38,7 +37,7 @@ class DishController {
     }
 
     public function deleteDish($id) {
-        $sql = "DELETE FROM dishs WHERE id = ?";
+        $sql = "DELETE FROM dish WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }

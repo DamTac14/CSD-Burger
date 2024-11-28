@@ -20,11 +20,11 @@
 
     <!-- Écran 2 : Choix du type de service -->
 <div class="screen hidden takeaway" id="screen-service">
-  <button class="service-btn" data-service="takeaway">
+  <button class="service-btn" data-service="0">
     <img src="ressource/images/icons/a-emporter.png" alt="À emporter">
     <span>À emporter</span>
   </button>
-  <button class="service-btn" data-service="dinein">
+  <button class="service-btn" data-service="1">
     <img src="ressource/images/icons/fast-food.png" alt="Sur place">
     <span>Sur place</span>
   </button>
@@ -60,7 +60,7 @@
 </div>
 
 
-    <!-- Écran 4 : Confirmation -->
+    
 <!-- Écran 4 : Confirmation -->
 <div class="screen hidden" id="screen-confirm">
   <div class="confirm-container">

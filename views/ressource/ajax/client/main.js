@@ -10,6 +10,23 @@ document.addEventListener("DOMContentLoaded", () => {
   let inactivityTimer;
   let currentScreen = "screen-home"; // Écran actif par défaut
   let cart = []; // Le panier pour stocker les articles
+  let serviceChoice = null; // Variable pour mémoriser le choix du service (null, "emporter", "sur place")
+
+  const btnCancel = document.getElementById("btn-cancel");
+  const btnBack = document.getElementById("btn-back");
+
+  // Gérer le clic sur le bouton "Oui" (annuler la commande)
+  btnCancel.addEventListener("click", () => {
+    cart = []; // Vider le panier
+    serviceChoice = null; // Réinitialiser le choix du service
+    updateCart(); // Mettre à jour l'affichage du panier (panier vide)
+    setCurrentScreen("screen-home"); // Retourner à l'écran d'accueil
+  });
+
+  // Gérer le clic sur le bouton "Non" (retourner à la commande)
+  btnBack.addEventListener("click", () => {
+    setCurrentScreen("screen-menu"); // Retourner à l'écran du menu
+  });
 
   // Réinitialise le minuteur d'inactivité
   function resetInactivityTimer() {
@@ -42,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCart();
   }
 
-  // Met à jour le contenu du panier
+  // Met à jour l'affichage du panier
   function updateCart() {
     const cartEmpty = document.getElementById("cart-empty");
 
@@ -59,8 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
         cartItems.appendChild(li);
       });
     } else {
-      cartEmpty.classList.remove("hidden");
-      cartItems.classList.add("hidden");
+      cartEmpty.classList.remove("hidden"); // Affiche le message "Panier vide"
+      cartItems.classList.add("hidden"); // Masque les éléments du panier
+      cartItems.innerHTML = '';
     }
   }
 
@@ -71,14 +89,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Commencer la commande
   btnStart.addEventListener("click", () => {
-    setCurrentScreen("screen-service");
+    // Si un choix de service a déjà été effectué, on passe directement à l'écran du menu
+    if (serviceChoice) {
+      setCurrentScreen("screen-menu");
+    } else {
+      setCurrentScreen("screen-service"); // Sinon, on va à l'écran de sélection du service
+    }
   });
 
   // Choix du service (À emporter / Sur place)
   document.querySelectorAll(".service-btn").forEach(btn => {
     btn.addEventListener("click", async () => {
+      // Si un choix a déjà été fait, on ne demande plus
+      if (!serviceChoice) {
+        serviceChoice = btn.dataset.service; // Sauvegarder le choix du service
+        console.log(`Service choisi : ${serviceChoice}`); // Pour le débogage
+      }
+
       await loadMenu(); // Charge le menu complet
-      setCurrentScreen("screen-menu");
+      setCurrentScreen("screen-menu"); // Affiche le menu après avoir fait le choix
     });
   });
 

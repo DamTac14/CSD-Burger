@@ -1,5 +1,16 @@
 const API_BASE_URL = "/api";
 
+// Renommer la fonction pour qu'elle soit spécifique aux menus
+export async function fetchMenus() {
+  const response = await fetch(`${API_BASE_URL}/menus`);
+  if (!response.ok) {
+    console.error("Erreur de récupération des menus", response.statusText);
+    return [];
+  }
+  return await response.json();
+}
+
+
 // Plats
 export async function fetchDishes() {
   const response = await fetch(`${API_BASE_URL}/dishes`);
