@@ -5,26 +5,34 @@ include_once '../controllers/MenuController.php';
 
 $pdo = getDB();
 $menuController = new Controllers\MenuController($pdo);
-$menus = $menuController->showMenu();
-?>
-?>
 
+try {
+    $menus = $menuController->getAll();
+} catch (Exception $e) {
+    die("Erreur lors de la récupération des menus : " . $e->getMessage());
+}
 
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="ressource/assets/header.css"> 
+    <link rel="stylesheet" href="ressource/assets/header.css">
 
     <title>Listes des formules</title>
 </head>
+
 <body>
-<?php include('header.php'); ?>
+    <?php include('header.php'); ?>
     <h1>Liste des formules</h1>
+
     <?php if (isset($_GET['success'])): ?>
         <p>Menu ajouté avec succès !</p>
     <?php endif; ?>
+
+  
     <ul>
         <?php foreach ($menus as $menu): ?>
             <li>
@@ -34,4 +42,5 @@ $menus = $menuController->showMenu();
         <?php endforeach; ?>
     </ul>
 </body>
+
 </html>
