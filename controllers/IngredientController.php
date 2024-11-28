@@ -12,7 +12,7 @@ class IngredientController {
     }
 
     public function addIngredient($name, $allergens, $price) {
-        $sql = "INSERT INTO ingredients (name, allergens, price) 
+        $sql = "INSERT INTO Ingredient (name, allergens, price) 
                 VALUES (?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$name, $allergens, $price]);
@@ -20,7 +20,7 @@ class IngredientController {
     }
 
     public function showIngredient(): mixed {
-        $sql = "SELECT * FROM ingredient";
+        $sql = "SELECT * FROM Ingredient";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $ingredient = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +28,7 @@ class IngredientController {
     }
 
     public function updateIngredient($id, $name, $allergens, $price) {
-        $sql = "UPDATE dishs
+        $sql = "UPDATE Dish
                 SET name = ?, allergens = ?, price = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -37,7 +37,7 @@ class IngredientController {
     }
 
     public function deleteIngredient($id) {
-        $sql = "DELETE FROM ingredients WHERE id = ?";
+        $sql = "DELETE FROM Ingredient WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
