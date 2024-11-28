@@ -15,7 +15,7 @@ export async function loadMenus() {
     const menuItem = document.createElement("div");
     menuItem.classList.add("menu-item");
     menuItem.innerHTML = `
-      <img src="${menu.image}" alt="${menu.name}">
+      <img src="../uploads/${menu.image}" alt="${menu.name}">
       <h3>${menu.name}</h3>
       <p>Prix : ${menu.menu_price}€</p>
       <p class='menu-item-allergene'>Allergènes :</br> ${allergens}</p>
