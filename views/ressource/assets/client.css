@@ -138,3 +138,81 @@ body {
   color: black;
   transform: scale(1.05);
 }
+#screen-menu {
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  padding: 10px;
+}
+
+#menu-navigation {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+}
+
+#menu-navigation button {
+  width: 140px; /* Taille fixe */
+  height: 120px; /* Taille fixe */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em; /* Plus petit par défaut */
+  border-radius: 5px;
+  background-color: #d03931;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  opacity: 0.6;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+}
+
+#menu-navigation button img {
+  width: 50px; /* Taille fixe pour l'image */
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+#menu-navigation button.menu-selected {
+  background-color: #D03A31;
+  color: white;
+  opacity: 1;
+  transform: scale(1.2); /* Agrandir légèrement l'élément actif */
+}
+
+
+#menu-navigation button:active {
+  opacity: 1;
+  transform: scale(1.1);
+  background-color: #e6534b;
+}
+
+#menu-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+#btn-confirm-order {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  color: white;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+#btn-confirm-order:active {
+  background-color: #ec4556;
+}
+
+#menu-navigation button img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}

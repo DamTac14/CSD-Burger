@@ -17,3 +17,26 @@ export async function loadMenu() {
     menuList.appendChild(menuItem);
   });
 }
+
+// Gestion des boutons de navigation (À emporter / Sur place)
+export function setupServiceButtons() {
+  const serviceButtons = document.querySelectorAll('.service-btn');
+  serviceButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      showScreen('screen-menu'); // Affiche l'écran menu
+    });
+  });
+}
+export function setupCategoryNavigation() {
+  const menuNav = document.getElementById("menu-navigation");
+
+  menuNav.addEventListener("click", async (event) => {
+    const category = event.target.dataset.category;
+    if (category) {
+      document.querySelector("#menu-navigation .menu-selected")?.classList.remove("menu-selected");
+      event.target.classList.add("menu-selected");
+      await loadMenu(category); // Charge les plats correspondant à la catégorie
+    }
+  });
+}
+

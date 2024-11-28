@@ -34,15 +34,31 @@
     <!-- Écran 3 : Menus -->
 <div class="screen hidden" id="screen-menu">
   <nav id="menu-navigation">
-    <button data-category="menus" class="menu-selected">Menus</button>
-    <button data-category="burgers">Burgers</button>
-    <button data-category="sides">Accompagnements</button>
-    <button data-category="drinks">Boissons</button>
-    <button data-category="desserts">Desserts</button>
+    <button data-category="menus" class="menu-selected">
+      <img src="ressource/images/icons/menus.png" alt="Menus">
+      <span>Menus</span>
+    </button>
+    <button data-category="burgers">
+      <img src="ressource/images/icons/burgers.png" alt="Burgers">
+      <span>Burgers</span>
+    </button>
+    <button data-category="sides">
+      <img src="ressource/images/icons/frites.png" alt="Accompagnements">
+      <span>Petite faim</span>
+    </button>
+    <button data-category="drinks">
+      <img src="ressource/images/icons/drinks.png" alt="Boissons">
+      <span>Boissons</span>
+    </button>
+    <button data-category="desserts">
+      <img src="ressource/images/icons/desserts.png" alt="Desserts">
+      <span>Desserts</span>
+    </button>
   </nav>
   <div id="menu-list"></div>
   <button id="btn-confirm-order">Annuler commande</button>
 </div>
+
 
     <!-- Écran 4 : Confirmation -->
     <div class="screen hidden" id="screen-confirm">
