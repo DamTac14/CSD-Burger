@@ -11,7 +11,7 @@ class OrderItemController {
     }
 
     public function addOrderItem($name) {
-        $sql = "INSERT INTO order_items (name) 
+        $sql = "INSERT INTO order__item (name) 
                 VALUES (?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$name]);
@@ -19,7 +19,7 @@ class OrderItemController {
     }
 
     public function showOrderItem(): mixed {
-        $sql = "SELECT * FROM order_items";
+        $sql = "SELECT * FROM order__item";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $orderItem = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -27,7 +27,7 @@ class OrderItemController {
     }
 
     public function updateIngredient($id, $name) {
-        $sql = "UPDATE order_items
+        $sql = "UPDATE order__item
                 SET name = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -36,7 +36,7 @@ class OrderItemController {
     }
 
     public function deleteIngredient($id) {
-        $sql = "DELETE FROM order_items WHERE id = ?";
+        $sql = "DELETE FROM order__item WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }

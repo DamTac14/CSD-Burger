@@ -16,7 +16,7 @@ use Controllers\StockController;
 
  
 
-include_once __DIR__ . '/../database/database.php'; 
+require_once 'database/database.php';
 
 $pdo = getDB();
 $dishController = new DishController($pdo);
