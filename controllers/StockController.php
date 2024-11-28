@@ -12,7 +12,7 @@ class StockController {
     }
 
     public function addStock($quantity, $threshold) {
-        $sql = "INSERT INTO Stock (quantity, threshold) 
+        $sql = "INSERT INTO stock (quantity, threshold) 
                 VALUES (?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$quantity, $threshold]);
@@ -20,7 +20,7 @@ class StockController {
     }
 
     public function showStock() {
-        $sql = "SELECT * FROM Stock";
+        $sql = "SELECT * FROM stock";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $stock = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +28,7 @@ class StockController {
     }
 
     public function updateStock($id, $quantity, $threshold) {
-        $sql = "UPDATE Stock
+        $sql = "UPDATE stock
                 SET quantity = ?, threshold = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -37,7 +37,7 @@ class StockController {
     }
 
     public function deleteStock($id) {
-        $sql = "DELETE FROM Stock WHERE id = ?";
+        $sql = "DELETE FROM stock WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
