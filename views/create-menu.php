@@ -1,27 +1,53 @@
-<?php 
+<?php
 
+use Controllers\MenuController;
 use Controllers\DishController;
 
 include_once '../database/database.php';
+include_once '../controllers/MenuController.php';
 include_once '../controllers/DishController.php';
-$dishController = new DishController(getDB());
-$dishes = $dishController->showDish();
+
+$pdo = getDB();
+$menuController = new MenuController($pdo);
+$dishController = new DishController($pdo);
+
+$message = null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        $menuController->create([
+            'name' => $_POST['nom'] ?? null,
+            'image' => $_FILES['image'] ?? null,
+            'dishIds' => $_POST['dishes'] ?? []
+        ]);
+        $message = "Menu créé avec succès !";
+    } catch (Exception $e) {
+        $message = "Erreur : " . $e->getMessage();
+    }
+}
+
+$dishes = $dishController->getAll();
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="ressource/assets/header.css"> 
-    <link rel="stylesheet" href="ressource/assets/menu-create.css"> 
+    <link rel="stylesheet" href="ressource/assets/header.css">
+    <link rel="stylesheet" href="ressource/assets/menu-create.css">
     <title>Création des formules</title>
 </head>
+
 <body>
-<?php include('header.php'); ?>
+    <?php include('header.php'); ?>
     <h1>Création des formules</h1>
-    <form id="menu-form" action="../index.php" method="POST" enctype="multipart/form-data">
+    <?php if ($message): ?>
+        <p><?php echo htmlspecialchars($message); ?></p>
+    <?php endif; ?>
+
+    <form id="menu-form" action="create-menu.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="nom" class="form-label">Intitulé</label>
             <input type="text" class="form-control" id="nom" name="nom" required>
@@ -48,4 +74,5 @@ $dishes = $dishController->showDish();
         <button type="submit" class="btn-primary">Ajouter</button>
     </form>
 </body>
+
 </html>
