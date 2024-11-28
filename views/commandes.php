@@ -6,7 +6,7 @@ include_once '../database/database.php';
 include_once '../controllers/OrderController.php';
 
 $orderController = new OrderController(getDB());
-$orders = $orderController->showOrder();
+$orders = $orderController->getAll();
 ?>
 
 <!DOCTYPE html>
