@@ -17,8 +17,7 @@
         <link rel="stylesheet" href="ressource/assets/header.css">
         <style>
             table{
-                border: 2px solid green !important;
-                border-radius: 25px !important;
+                border-radius: 25px;
                 width: 100%;
                 text-align: center;
                 border-spacing: 0;
@@ -56,7 +55,7 @@
                 </thead>
                 <tbody>
                     <?php
-                        $employees_list = $employees->showEmployee();
+                        $employees_list = $employees->getAll();
                         $employees_count = count($employees_list);
                         for($i = 0; $i < $employees_count; $i++){
                             if(!$employees_list[$i]['is_active']){continue;}; //Skips inactive employees.
