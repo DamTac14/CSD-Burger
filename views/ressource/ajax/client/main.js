@@ -4,6 +4,10 @@ import { loadMenu, setupCategoryNavigation } from "./menu.js";
 document.addEventListener("DOMContentLoaded", () => {
   const btnStart = document.getElementById("btn-start");
   const cartItems = document.getElementById("cart-items");
+  const btnCancel = document.getElementById("btn-cancel");
+  const btnBack = document.getElementById("btn-back");
+  const btnConfirmOrder = document.getElementById("btn-confirm-order");
+
   let inactivityTimer;
   let currentScreen = "screen-home"; // Écran actif par défaut
   let cart = []; // Le panier pour stocker les articles
@@ -22,13 +26,20 @@ document.addEventListener("DOMContentLoaded", () => {
   function setCurrentScreen(screen) {
     currentScreen = screen;
     showScreen(screen);
+
+    // Afficher ou masquer le bouton "Annuler commande" selon l'écran
+    if (screen === "screen-menu") {
+      btnConfirmOrder.classList.remove("hidden"); // Affiche le bouton
+    } else {
+      btnConfirmOrder.classList.add("hidden"); // Masque le bouton
+    }
+
     resetInactivityTimer();
   }
 
   // Commencer la commande
   btnStart.addEventListener("click", () => {
     setCurrentScreen("screen-service");
-    btnConfirmOrder.style.display = 'block'; // Affiche le bouton annuler commande
   });
 
   // Choix du service (À emporter / Sur place)
@@ -55,9 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
   // Revenir en arrière sans annuler
-  document.getElementById("btn-back").addEventListener("click", () => {
+  btnBack.addEventListener("click", () => {
     setCurrentScreen("screen-menu");
   });
 
@@ -65,16 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
   setupCategoryNavigation();
 
   // Ajouter des articles au panier comme exemple
-  // Par exemple, si l'utilisateur choisit un menu
   document.querySelectorAll("#menu-navigation button").forEach(btn => {
     btn.addEventListener("click", () => {
       addToCart(`Article: ${btn.textContent}`); // Ajoute le nom de la catégorie ou autre info pertinente
     });
   });
-
-  const btnCancel = document.getElementById("btn-cancel");
-  const btnBack = document.getElementById("btn-back");
-  const btnConfirmOrder = document.getElementById("btn-confirm-order");
 
   // Fonction pour revenir à l'écran d'accueil
   btnCancel.addEventListener("click", () => {
