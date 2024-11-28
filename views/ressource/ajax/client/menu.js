@@ -1,5 +1,4 @@
 import { fetchDishes, fetchMenus } from "./api.js";
-
 export async function loadMenus() {
   const menuList = document.getElementById("menu-list");
 
@@ -7,18 +6,20 @@ export async function loadMenus() {
   const menus = await fetchMenus();
   menuList.innerHTML = ""; // Vide le contenu précédent
 
-  // Affiche chaque menu
+  // Affiche chaque menu avec son prix et ses allergènes
   menus.forEach(menu => {
     const menuItem = document.createElement("div");
     menuItem.classList.add("menu-item");
     menuItem.innerHTML = `
       <h3>${menu.name}</h3>
       <p>Prix : ${menu.menu_price}€</p>
+      <p>Allergènes : ${menu.allergens.join(", ")}</p>
       <button data-id="${menu.id}" class="add-to-order">Sélectionner</button>
     `;
     menuList.appendChild(menuItem);
   });
 }
+
 
 
 export function setupCategoryNavigation() {

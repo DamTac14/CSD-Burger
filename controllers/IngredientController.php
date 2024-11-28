@@ -20,7 +20,7 @@ class IngredientController {
             throw new Exception("Missing parameters");
         }
 
-        $sql = "INSERT INTO ingredients (name, allergens, price) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO ingredient (name, allergens, price) VALUES (?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$data['name'], $data['allergens'], $data['price']]);
         return true;
@@ -28,7 +28,7 @@ class IngredientController {
 
     // Méthode pour récupérer tous les ingrédients
     public function getAll() {
-        $sql = "SELECT * FROM ingredients";
+        $sql = "SELECT * FROM ingredient";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $ingredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ class IngredientController {
 
         $id = $data['id'];
 
-        $sql = "SELECT * FROM ingredients WHERE id = ?";
+        $sql = "SELECT * FROM ingredient WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
 
@@ -61,7 +61,7 @@ class IngredientController {
             throw new Exception("Missing parameters");
         }
 
-        $sql = "UPDATE ingredients SET name = ?, allergens = ?, price = ? WHERE id = ?";
+        $sql = "UPDATE ingredient SET name = ?, allergens = ?, price = ? WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$data['name'], $data['allergens'], $data['price'], $data['id']]);
     }
@@ -74,7 +74,7 @@ class IngredientController {
 
         $id = $data['id'];
 
-        $sql = "DELETE FROM ingredients WHERE id = ?";
+        $sql = "DELETE FROM ingredient WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }

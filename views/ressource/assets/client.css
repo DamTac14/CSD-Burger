@@ -370,7 +370,3 @@ body {
   font-size: 1.1em;
   transition: background-color 0.3s;
 }
-
-.add-to-order:hover {
-  background-color: #e65c00;
-}

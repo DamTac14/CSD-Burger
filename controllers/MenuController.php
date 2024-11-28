@@ -71,8 +71,6 @@ class MenuController {
             throw $e;
         }
     }
-
-    // Méthode pour récupérer tous les menus
     public function getAll() {
         // Récupérer tous les menus
         $sql = "SELECT id, name, image FROM menu";
@@ -86,16 +84,18 @@ class MenuController {
     
         $result = [];
     
-        // Pour chaque menu, on calcule le prix total
+        // Pour chaque menu, on calcule le prix total et on récupère les allergènes
         foreach ($menus as $menu) {
             // Calculer le prix du menu basé sur ses plats
             $menuId = $menu['id'];
             $totalCost = 0;
+            $allergens = [];
     
             // Requête pour récupérer les plats associés au menu
             $dishSql = "
                 SELECT 
-                    d.id AS dish_id
+                    d.id AS dish_id,
+                    d.name AS dish_name
                 FROM 
                     dish d
                 LEFT JOIN 
@@ -111,10 +111,11 @@ class MenuController {
             foreach ($dishes as $dish) {
                 $dishId = $dish['dish_id'];
     
-                // Récupérer les ingrédients du plat
+                // Récupérer les ingrédients et leurs allergènes pour ce plat
                 $ingredientSql = "
                     SELECT 
-                        i.price AS ingredient_price
+                        i.price AS ingredient_price,
+                        i.allergens AS ingredient_allergens
                     FROM 
                         ingredient i
                     LEFT JOIN 
@@ -131,6 +132,16 @@ class MenuController {
                 $dishCost = 0;
                 foreach ($ingredients as $ingredient) {
                     $dishCost += $ingredient['ingredient_price'];
+    
+                    // Ajouter les allergènes à la liste
+                    if ($ingredient['ingredient_allergens']) {
+                        $ingredientAllergens = json_decode($ingredient['ingredient_allergens'], true); // Si les allergènes sont stockés sous forme de JSON
+                        foreach ($ingredientAllergens as $allergen) {
+                            if (!in_array($allergen, $allergens)) {
+                                $allergens[] = $allergen;  // Ajouter l'allergène si non présent
+                            }
+                        }
+                    }
                 }
     
                 // Ajouter le coût du plat au total du menu
@@ -144,12 +155,13 @@ class MenuController {
             $priceWithTva = $totalCost * (1 + $tva);
             $finalPrice = $priceWithTva * (1 + $marge);
     
-            // Ajouter le menu avec son prix calculé
+            // Ajouter le menu avec son prix calculé et ses allergènes
             $result[] = [
                 'id' => $menu['id'],
                 'name' => $menu['name'],
                 'image' => $menu['image'],
                 'menu_price' => round($finalPrice, 2),  // Prix du menu avec TVA et marge
+                'allergens' => $allergens,  // Liste des allergènes pour ce menu
             ];
         }
     
