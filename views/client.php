@@ -38,7 +38,7 @@
       <img src="ressource/images/icons/menus.png" alt="Menus">
       <span>Menus</span>
     </button>
-    <button data-category="burgers">
+    <button data-category="Burger">
       <img src="ressource/images/icons/burgers.png" alt="Burgers">
       <span>Burgers</span>
     </button>

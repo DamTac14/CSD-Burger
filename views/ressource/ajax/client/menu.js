@@ -1,7 +1,6 @@
 import { fetchDishes, fetchMenus } from "./api.js";
 
 
-
 export async function loadMenus() {
   const menuList = document.getElementById("menu-list");
 
@@ -27,6 +26,35 @@ export async function loadMenus() {
 }
 
 
+export async function loadDishesByCategory(category) {
+  const menuList = document.getElementById("menu-list");
+
+  // Appelle l'API pour récupérer tous les plats
+  const dishes = await fetchDishes();
+  menuList.innerHTML = ""; // Vide le contenu précédent
+
+  // Filtre les plats en fonction de la catégorie
+  const filteredDishes = dishes.filter(dish => dish.type.toLowerCase() === category.toLowerCase());
+
+  console.log("Filtered dishes for category:", category, filteredDishes); // Log pour vérifier les plats filtrés
+
+  // Affiche chaque plat avec son prix et ses ingrédients
+  filteredDishes.forEach(dish => {
+    // Vérifiez les ingrédients
+    const ingredients = dish.ingredients ? JSON.parse(dish.ingredients).ingredients.join(", ") : "Aucun";
+
+    const dishItem = document.createElement("div");
+    dishItem.classList.add("menu-item");
+    dishItem.innerHTML = `
+      <h3>${dish.name}</h3>
+
+      <button data-id="${dish.id}" class="add-to-order">Sélectionner</button>
+    `;
+    menuList.appendChild(dishItem);
+  });
+}
+
+
 
 
 export function setupCategoryNavigation() {
@@ -38,9 +66,14 @@ export function setupCategoryNavigation() {
 
     const category = button.dataset.category;
 
+    console.log("Category clicked:", category); // Log pour vérifier la catégorie cliquée
+
+    // Charge et affiche les menus si "menus" est cliqué
     if (category === "menus") {
-      // Charge et affiche uniquement les menus
       await loadMenus();
+    } else if (["Burger", "sides", "drinks", "desserts"].includes(category)) {
+      // Charge et affiche les plats de la catégorie correspondante
+      await loadDishesByCategory(category);
     } else {
       console.log(`Catégorie non prise en charge pour le moment : ${category}`);
     }
@@ -50,6 +83,7 @@ export function setupCategoryNavigation() {
     button.classList.add("menu-selected");
   });
 }
+
 
 export async function loadMenuDetails(menuId) {
   const menuDetailsContainer = document.getElementById("menu-details");
