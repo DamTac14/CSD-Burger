@@ -1,12 +1,10 @@
-# Activer la réécriture d'URL
 RewriteEngine On
-
-# Assurer la bonne gestion des URL en local
 RewriteBase /CSDBurger/CSD-Burger/
 
-# Rediriger toutes les requêtes API vers index.php
+# Rediriger toutes les requêtes API vers index.php pour gestion centralisée
 RewriteCond %{REQUEST_URI} ^/CSDBurger/CSD-Burger/api/ [NC]
 RewriteRule ^api/(.*)$ /CSDBurger/CSD-Burger/index.php [L,QSA]
+
 
 # Gestion des routes spécifiques aux contrôleurs
 RewriteRule ^api/dishes/(\d+)$ /CSDBurger/CSD-Burger/index.php?controller=dish&id=$1 [L,QSA]
