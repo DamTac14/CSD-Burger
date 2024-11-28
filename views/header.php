@@ -4,5 +4,6 @@
         <a href="menu-list.php">Liste des formules</a>
         <a href="stock-management.php">Gestion des stocks</a>
         <a href="insight-data.php">Rapport de performance</a>
+        <a href="commandes.php">Tableau des commandes</a>
         <a href="">Déconnexion</a>
     </header>
