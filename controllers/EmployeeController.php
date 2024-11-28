@@ -13,7 +13,7 @@ class EmployeeController {
     }
 
     public function addEmployee($firstName, $lastName, $userName, $role, $password, $isActive, $hireDate, $departureDate) {
-        $sql = "INSERT INTO employees (firstName, lastName, userName, role, password, isActive, hireDate, departureDate) 
+        $sql = "INSERT INTO Employee (firstName, lastName, userName, role, password, isActive, hireDate, departureDate) 
                 VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -22,7 +22,7 @@ class EmployeeController {
     }
 
     public function showEmployee() {
-        $sql = "SELECT * FROM employees";
+        $sql = "SELECT * FROM Employee";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $employee = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +30,7 @@ class EmployeeController {
     }
 
     public function updateEmployee($id, $lastName, $firstName, $userName, $role, $password, $isActive, $hireDate, $departureDate) {
-        $sql = "UPDATE employees 
+        $sql = "UPDATE Employee 
                 SET  firstName = ?, lastName = ?, userName = ?, role = ?, password = ?, isActive = ?, hireDate = ?, departureDate = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
@@ -40,7 +40,7 @@ class EmployeeController {
     }
 
     public function deleteEmployee($id) {
-        $sql = "DELETE FROM employees WHERE id = ?";
+        $sql = "DELETE FROM Employee WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
