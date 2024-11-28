@@ -30,7 +30,6 @@ class OrderController {
                 o.order_datetime,
                 oi.id AS order_item_id,
                 oi.name AS order_item_name,
-                oi.image AS order_item_image,
                 oi.options AS order_item_options,
                 oi.id_menu AS menu_id
             FROM `order` o
