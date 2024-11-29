@@ -45,7 +45,7 @@
                     <tr>
                         <td>
                             <label for="hire-date">Date d'embauche</label><br>
-                            <input type="text" name="hire-date" id="hire-date" value="<?= $hire_date ?>">
+                            <input type="text" name="hire-date" id="hire-date" value="<?= $hire_date ?>" readonly>
                         </td>
                         <td>
                             <label for="info">Info...</label><br>
