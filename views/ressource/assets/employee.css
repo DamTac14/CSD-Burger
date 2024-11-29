@@ -36,3 +36,38 @@
 #add-employee-button:hover{
     background-color: #435984;
 }
+#back-button{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: auto;
+    background-color: #ADC7F3;
+    opacity: 40%;
+    color: white;
+    border-radius: 25px;
+    border: 0;
+    padding: 4px 20px;
+    font-size: larger;
+    cursor: pointer;
+    text-decoration: none;
+}
+#back-button:hover{
+    opacity: 60%;
+}
+#employee-form{
+    padding: 30px 50px;
+    background-color: #546C98;
+    border-radius: 25px;
+    width: 70%;
+    border-spacing: 0;
+    font-size: larger;
+}
+#employee-form input, #employee-form select{
+    font-size: larger;
+    width: 90%;
+    margin-bottom: 20px;
+}
+#employee-form select{
+    width: 96%;
+    margin-bottom: 20px;
+}
