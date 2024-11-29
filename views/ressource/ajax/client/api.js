@@ -25,11 +25,17 @@ export async function fetchMenus() {
   }
 }
 
-
-// Plats
 export async function fetchDishes() {
   const response = await fetch(`${API_BASE_URL}/dishes`);
-  return response.ok ? await response.json() : [];
+  
+  if (!response.ok) {
+    console.error("Erreur lors de la récupération des plats:", response.status);
+    return [];
+  }
+
+  const data = await response.json();
+  console.log("Données des plats récupérées:", data); // Affiche les plats pour déboguer
+  return data;
 }
 
 export async function addDish(dish) {

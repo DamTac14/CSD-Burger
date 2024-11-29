@@ -1,5 +1,5 @@
 import { showScreen } from "./navigation.js";
-import { loadMenus, setupCategoryNavigation } from "./menu.js";
+import { loadMenus, setupCategoryNavigation, loadDishesByCategory } from "./menu.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const btnStart = document.getElementById("btn-start");
@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let inactivityTimer;
   let currentScreen = "screen-home"; // Écran actif par défaut
-  let cart = []; // Le panier pour stocker les articles
   let serviceChoice = null; // Variable pour mémoriser le choix du service (null, "emporter", "sur place")
 
   const btnCancel = document.getElementById("btn-cancel");
@@ -53,34 +52,25 @@ document.addEventListener("DOMContentLoaded", () => {
     resetInactivityTimer(); // Redémarre le minuteur
   }
 
-  // Ajoute un article au panier
-  function addToCart(item) {
-    cart.push(item);
-    updateCart();
-  }
 
-  // Met à jour l'affichage du panier
-  function updateCart() {
-    const cartEmpty = document.getElementById("cart-empty");
 
-    if (cart.length > 0) {
-      cartEmpty.classList.add("hidden");
-      cartItems.classList.remove("hidden");
-      cartItems.innerHTML = ''; // Vide le contenu existant
+  // Ajouter un article à partir du menu ou des plats
+  // Sélectionner les boutons avec la classe "add-to-order"
+  document.querySelectorAll(".add-to-order").forEach(button => {
+    button.addEventListener("click", (event) => {
+      const id = event.target.dataset.id;
+      const name = event.target.dataset.name;
+      const price = event.target.dataset.price;
 
-      // Ajoute chaque article dans le panier
-      cart.forEach(item => {
-        const li = document.createElement("div");
-        li.textContent = item;
-        li.classList.add("cart-item");
-        cartItems.appendChild(li);
-      });
-    } else {
-      cartEmpty.classList.remove("hidden"); // Affiche le message "Panier vide"
-      cartItems.classList.add("hidden"); // Masque les éléments du panier
-      cartItems.innerHTML = '';
-    }
-  }
+      // Vérifier que toutes les données nécessaires existent
+      if (id && name && price) {
+        const item = { id, name, price, type: event.target.classList.contains("menu-item") ? "menu" : "dish" };
+        addToCart(item); // Ajouter l'item au panier
+      } else {
+        console.error("Données manquantes pour l'élément.");
+      }
+    });
+  });
 
   // Gestion du clic sur "Annuler commande"
   btnConfirmOrder.addEventListener("click", () => {
@@ -111,13 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Ajouter des articles au panier depuis le menu
-  document.querySelectorAll("#menu-navigation button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      addToCart(`Article: ${btn.textContent}`); // Exemple d'article ajouté
-    });
-  });
-
   // Gestion de l'inactivité
   document.addEventListener("mousemove", resetInactivityTimer);
   document.addEventListener("click", resetInactivityTimer);
@@ -127,4 +110,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Lance le minuteur initial
   resetInactivityTimer();
+
+  
+// Fonction pour valider la commande
+async function validateOrder() {
+  if (cart.length === 0) {
+    alert("Votre panier est vide !");
+    return;
+  }
+
+  // Préparer les données pour l'API
+  const order = {
+    number: `ORD-${Date.now()}`, // Numéro de commande unique (généré ici à titre d'exemple)
+    items: cart.map(item => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      type: item.type,
+    })),
+    status: "pending", // Statut initial de la commande
+    orderDate: new Date().toISOString(), // Date au format ISO
+    takeAway: false, // Exemple : modifiable en fonction des préférences utilisateur
+  };
+
+  try {
+    // Envoi de la commande à l'API
+    const result = await addOrder(order);
+
+    if (result && result.success) {
+      alert("Votre commande a été validée !");
+      console.log("Commande créée :", result);
+
+      // Vider le panier après validation
+      cart = [];
+      updateCartDisplay(); // Mettre à jour l'affichage
+    } else {
+      alert("Erreur lors de la validation de la commande.");
+      console.error("Erreur API :", result);
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de la commande :", error);
+    alert("Une erreur s'est produite.");
+  }
+}
+
 });
